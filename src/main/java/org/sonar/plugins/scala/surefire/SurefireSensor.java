@@ -26,33 +26,37 @@ import org.sonar.api.batch.CoverageExtension;
 import org.sonar.api.batch.DependsUpon;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 import org.sonar.api.resources.Qualifiers;
 import org.sonar.api.resources.Resource;
 import org.sonar.plugins.scala.language.Scala;
 import org.sonar.plugins.surefire.api.AbstractSurefireParser;
+import org.sonar.plugins.surefire.api.SurefireUtils;
 
 import java.io.File;
 
 public class SurefireSensor implements Sensor {
 
   private static final Logger LOG = LoggerFactory.getLogger(SurefireSensor.class);
+  private final Settings settings;
 
   @DependsUpon
   public Class<?> dependsUponCoverageSensors() {
     return CoverageExtension.class;
   }
 
+  public SurefireSensor (Settings settings){
+	  this.settings = settings;
+  }
+  
   public boolean shouldExecuteOnProject(Project project) {
     return project.getAnalysisType().isDynamic(true) && Scala.INSTANCE.getKey().equals(project.getLanguageKey());
   }
 
   public void analyse(Project project, SensorContext context) {
-    String path = (String) project.getProperty(CoreProperties.SUREFIRE_REPORTS_PATH_PROPERTY);
-    if (path != null) {
-      File pathFile = project.getFileSystem().resolvePath(path);
-      collect(project, context, pathFile);
-    }
+	  File dir = SurefireUtils.getReportsDirectory(settings, project);
+	    collect(project, context, dir);
   }
 
   protected void collect(Project project, SensorContext context, File reportsDir) {
@@ -62,7 +66,7 @@ public class SurefireSensor implements Sensor {
 
   private static final AbstractSurefireParser SUREFIRE_PARSER = new AbstractSurefireParser() {
     @Override
-    protected Resource<?> getUnitTestResource(String classKey) {
+    protected Resource getUnitTestResource(String classKey) {
       String filename = classKey.replace('.', '/') + ".scala";
       org.sonar.api.resources.File sonarFile = new org.sonar.api.resources.File(filename);
       sonarFile.setQualifier(Qualifiers.UNIT_TEST_FILE);

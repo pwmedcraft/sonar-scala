@@ -22,6 +22,7 @@ package org.sonar.plugins.scala.surefire;
 import org.junit.Test;
 import org.junit.Before;
 import org.sonar.api.batch.CoverageExtension;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.scala.language.Scala;
 
@@ -36,7 +37,7 @@ public class SurefireSensorTest {
     
     @Before
     public void setUp() {
-    	sensor = new SurefireSensor();
+    	sensor = new SurefireSensor(mock(Settings.class));
     	project = mock(Project.class);
     }
 

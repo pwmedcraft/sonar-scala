@@ -27,7 +27,7 @@ import java.io.File;
 
 public class ScalaCoberturaParser extends AbstractCoberturaParser {
     @Override
-    protected Resource<?> getResource(String fileName) {
+    protected Resource getResource(String fileName) {
         // TODO update the sbt scct plugin to provide the correct fully qualified class name.
         if (fileName.startsWith("src.main.scala."))
             fileName = fileName.replace("src.main.scala.", "");

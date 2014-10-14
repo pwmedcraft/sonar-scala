@@ -20,8 +20,10 @@
 package org.sonar.plugins.scala.sensor;
 
 import com.google.common.collect.Sets;
+
 import org.sonar.api.batch.Event;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.design.Dependency;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.MeasuresFilter;
@@ -30,6 +32,7 @@ import org.sonar.api.resources.ProjectLink;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -77,10 +80,6 @@ class FakeSensorContext implements SensorContext {
     return null;
   }
 
-  public Measure getMeasure(Metric metric) {
-    return null;
-  }
-
   public <M> M getMeasures(MeasuresFilter<M> filter) {
     return null;
   }
@@ -92,10 +91,15 @@ class FakeSensorContext implements SensorContext {
   public Measure saveMeasure(Metric metric, Double value) {
     return null;
   }
-
-  public Measure getMeasure(Resource resource, Metric metric) {
-    return null;
-  }
+  
+  public <G extends Serializable> Measure<G> getMeasure(Metric<G> arg0) {
+		return null;
+	}
+  
+  public <G extends Serializable> Measure<G> getMeasure(Resource resource,
+			Metric<G> arg1) {
+		return null;
+	}
 
   public String saveResource(Resource resource) {
     return null;
@@ -157,4 +161,13 @@ class FakeSensorContext implements SensorContext {
 
   public void deleteEvent(Event event) {
   }
+
+  public Measure saveMeasure(InputFile arg0, Measure arg1) {
+	return null;
+  }
+	
+  public Measure saveMeasure(InputFile arg0, Metric arg1, Double arg2) {
+	return null;
+  }
+
 }

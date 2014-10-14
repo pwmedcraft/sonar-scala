@@ -20,6 +20,7 @@
 package org.sonar.plugins.scala.sensor;
 
 import org.sonar.api.batch.Sensor;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.scala.language.Scala;
 
@@ -32,13 +33,16 @@ import org.sonar.plugins.scala.language.Scala;
 public abstract class AbstractScalaSensor implements Sensor {
 
   private final Scala scala;
+  protected final FileSystem fileSystem;
 
-  protected AbstractScalaSensor(Scala scala) {
+  protected AbstractScalaSensor(Scala scala, FileSystem fileSystem) {
     this.scala = scala;
+    this.fileSystem = fileSystem;
   }
 
   public final boolean shouldExecuteOnProject(Project project) {
-    return project.getLanguage().equals(scala);
+	  return project.getLanguage().equals(scala);
+	  //return fileSystem.languages().contains(Scala.INSTANCE.getKey());
   }
 
   public final Scala getScala() {
