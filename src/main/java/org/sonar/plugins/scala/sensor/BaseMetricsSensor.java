@@ -29,17 +29,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.scala.compiler.Lexer;
 import org.sonar.plugins.scala.language.Comment;
 import org.sonar.plugins.scala.language.Scala;
 import org.sonar.plugins.scala.language.ScalaFile;
 import org.sonar.plugins.scala.language.ScalaPackage;
-import org.sonar.plugins.scala.metrics.ComplexityCalculator;
 import org.sonar.plugins.scala.metrics.CommentsAnalyzer;
+import org.sonar.plugins.scala.metrics.ComplexityCalculator;
 import org.sonar.plugins.scala.metrics.FunctionCounter;
 import org.sonar.plugins.scala.metrics.LinesAnalyzer;
 import org.sonar.plugins.scala.metrics.PublicApiCounter;
@@ -64,20 +63,21 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
   }
 
   public void analyse(Project project, SensorContext sensorContext) {
-    final ProjectFileSystem fileSystem = project.getFileSystem();
-    final String charset = fileSystem.getSourceCharset().toString();
+  //  final ProjectFileSystem fileSystem = project.getFileSystem();
+ //   final String charset = fileSystem.getSourceCharset().toString();
+	final String charset = fileSystem.encoding().toString();   
     final Set<ScalaPackage> packages = new HashSet<ScalaPackage>();
 
     MetricDistribution complexityOfClasses = null;
     MetricDistribution complexityOfFunctions = null;
 
-    for (InputFile inputFile : fileSystem.mainFiles(getScala().getKey())) {
+    for (InputFile inputFile : fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Scala.INSTANCE.getKey()))) {
       final ScalaFile scalaFile = ScalaFile.fromInputFile(inputFile);
       packages.add(scalaFile.getParent());
       sensorContext.saveMeasure(scalaFile, CoreMetrics.FILES, 1.0);
 
       try {
-        final String source = FileUtils.readFileToString(inputFile.getFile(), charset);
+        final String source = FileUtils.readFileToString(inputFile.file(), charset);
         final List<String> lines = StringUtils.convertStringToListOfLines(source);
         final List<Comment> comments = new Lexer().getComments(source);
 
@@ -96,7 +96,7 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
             ComplexityCalculator.measureComplexityOfFunctions(source));
 
       } catch (IOException ioe) {
-        LOGGER.error("Could not read the file: " + inputFile.getFile().getAbsolutePath(), ioe);
+        LOGGER.error("Could not read the file: " + inputFile.absolutePath(), ioe);
       }
     }
 
@@ -106,7 +106,7 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
     if (complexityOfFunctions != null)
       sensorContext.saveMeasure(complexityOfFunctions.getMeasure());
 
-    computePackagesMetric(sensorContext, packages);
+   // computePackagesMetric(sensorContext, packages);
   }
 
   private void addLineMetrics(SensorContext sensorContext, ScalaFile scalaFile, LinesAnalyzer linesAnalyzer) {
@@ -118,8 +118,8 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
       CommentsAnalyzer commentsAnalyzer) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENT_LINES,
         (double) commentsAnalyzer.countCommentLines());
-    sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENTED_OUT_CODE_LINES,
-        (double) commentsAnalyzer.countCommentedOutLinesOfCode());
+//    sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENTED_OUT_CODE_LINES,
+//        (double) commentsAnalyzer.countCommentedOutLinesOfCode());
   }
 
   private void addCodeMetrics(SensorContext sensorContext, ScalaFile scalaFile, String source) {
@@ -150,11 +150,11 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
     return oldDistribution;
   }
 
-  private void computePackagesMetric(SensorContext sensorContext, Set<ScalaPackage> packages) {
-    for (ScalaPackage currentPackage : packages) {
-      sensorContext.saveMeasure(currentPackage, CoreMetrics.PACKAGES, 1.0);
-    }
-  }
+//  private void computePackagesMetric(SensorContext sensorContext, Set<ScalaPackage> packages) {
+//    for (ScalaPackage currentPackage : packages) {
+//      sensorContext.saveMeasure(currentPackage, CoreMetrics.PACKAGES, 1.0);
+//    }
+//  }
 
   @Override
   public String toString() {

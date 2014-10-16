@@ -41,8 +41,7 @@ public abstract class AbstractScalaSensor implements Sensor {
   }
 
   public final boolean shouldExecuteOnProject(Project project) {
-	  return project.getLanguage().equals(scala);
-	  //return fileSystem.languages().contains(Scala.INSTANCE.getKey());
+    return fileSystem.languages().contains(Scala.INSTANCE.getKey());
   }
 
   public final Scala getScala() {

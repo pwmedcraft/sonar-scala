@@ -19,20 +19,20 @@
  */
 package org.sonar.plugins.scala.sensor;
 
+import java.io.IOException;
+
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.Phase;
 import org.sonar.api.batch.Phase.Name;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
-import org.sonar.api.resources.InputFile;
+import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.scala.language.Scala;
 import org.sonar.plugins.scala.language.ScalaFile;
-
-import java.io.IOException;
 
 /**
  * This Sensor imports all Scala files into Sonar.
@@ -50,25 +50,32 @@ public class ScalaSourceImporterSensor extends AbstractScalaSensor {
   }
 
   public void analyse(Project project, SensorContext sensorContext) {
-    ProjectFileSystem fileSystem = project.getFileSystem();
-    String charset = fileSystem.getSourceCharset().toString();
+   // ProjectFileSystem fileSystem = project.getFileSystem();
+//    String charset = fileSystem.getSourceCharset().toString();
+	  String charset = fileSystem.encoding().toString();
+	  FilePredicates filePredicates = fileSystem.predicates();
 
-    for (InputFile sourceFile : fileSystem.mainFiles(getScala().getKey())) {
+ //   for (InputFile sourceFile : fileSystem.mainFiles(getScala().getKey())) {
+	  
+//	  FilePredicates p = fs.predicates();
+//	  Iterable files = fs.inputFiles(p.and(p.hasLanguage("java"), p.hasType(InputFile.Type.MAIN)));
+	  
+	  for (InputFile sourceFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.INSTANCE.getKey()), filePredicates.hasType(InputFile.Type.MAIN)))) {
       addFileToSonar(sensorContext, sourceFile, false, charset);
     }
 
-    for (InputFile testFile : fileSystem.testFiles(getScala().getKey())) {
+    for (InputFile testFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.INSTANCE.getKey()), filePredicates.hasType(InputFile.Type.TEST)))) {
       addFileToSonar(sensorContext, testFile, true, charset);
     }
   }
 
   private void addFileToSonar(SensorContext sensorContext, InputFile inputFile, boolean isUnitTest, String charset) {
     try {
-      String source = FileUtils.readFileToString(inputFile.getFile(), charset);
+      String source = FileUtils.readFileToString(inputFile.file(), charset);
       ScalaFile file = ScalaFile.fromInputFile(inputFile, isUnitTest);
 
-      sensorContext.index(file);
-      sensorContext.saveSource(file, source);
+//      sensorContext.index(file);
+//      sensorContext.saveSource(file, source);
 
       if (LOGGER.isDebugEnabled()) {
         if (isUnitTest) {
@@ -78,7 +85,7 @@ public class ScalaSourceImporterSensor extends AbstractScalaSensor {
         }
       }
     } catch (IOException ioe) {
-      LOGGER.error("Could not read the file: " + inputFile.getFile().getAbsolutePath(), ioe);
+      LOGGER.error("Could not read the file: " + inputFile.absolutePath(), ioe);
     }
   }
 
