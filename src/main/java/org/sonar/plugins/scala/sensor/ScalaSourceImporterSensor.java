@@ -60,11 +60,11 @@ public class ScalaSourceImporterSensor extends AbstractScalaSensor {
 //	  FilePredicates p = fs.predicates();
 //	  Iterable files = fs.inputFiles(p.and(p.hasLanguage("java"), p.hasType(InputFile.Type.MAIN)));
 	  
-	  for (InputFile sourceFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.INSTANCE.getKey()), filePredicates.hasType(InputFile.Type.MAIN)))) {
+	  for (InputFile sourceFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.KEY), filePredicates.hasType(InputFile.Type.MAIN)))) {
       addFileToSonar(sensorContext, sourceFile, false, charset);
     }
 
-    for (InputFile testFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.INSTANCE.getKey()), filePredicates.hasType(InputFile.Type.TEST)))) {
+    for (InputFile testFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.KEY), filePredicates.hasType(InputFile.Type.TEST)))) {
       addFileToSonar(sensorContext, testFile, true, charset);
     }
   }

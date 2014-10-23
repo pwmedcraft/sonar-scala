@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
@@ -52,7 +53,8 @@ public class ScalaSourceImporterSensorTest {
 
   @Before
   public void setUp() {
-    scalaSourceImporter = new ScalaSourceImporterSensor(Scala.INSTANCE,mock(FileSystem.class));
+	Settings settings = new Settings();  
+    scalaSourceImporter = new ScalaSourceImporterSensor(new Scala(settings),mock(FileSystem.class));
 
     fileSystem = mock(ProjectFileSystem.class);
     when(fileSystem.getSourceCharset()).thenReturn(Charset.defaultCharset());

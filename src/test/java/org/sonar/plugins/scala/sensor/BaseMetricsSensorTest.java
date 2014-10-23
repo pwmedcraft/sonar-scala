@@ -34,6 +34,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
@@ -55,7 +56,8 @@ public class BaseMetricsSensorTest {
 
   @Before
   public void setUp() {
-    baseMetricsSensor = new BaseMetricsSensor(Scala.INSTANCE, mock(FileSystem.class));
+	Settings settings = new Settings();
+    baseMetricsSensor = new BaseMetricsSensor(new Scala(settings), mock(FileSystem.class));
 
     fileSystem = mock(ProjectFileSystem.class);
     when(fileSystem.getSourceCharset()).thenReturn(Charset.defaultCharset());

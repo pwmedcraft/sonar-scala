@@ -37,7 +37,7 @@ public class CoberturaSensor implements Sensor, CoverageExtension {
   private static final AbstractCoberturaParser COBERTURA_PARSER = new ScalaCoberturaParser();
 
   public boolean shouldExecuteOnProject(Project project) {
-    return project.getAnalysisType().isDynamic(true) && Scala.INSTANCE.getKey().equals(project.getLanguageKey());
+	  return project.getAnalysisType().isDynamic(true) && Scala.KEY.equals(project.getLanguageKey());
   }
 
   public void analyse(Project project, SensorContext context) {

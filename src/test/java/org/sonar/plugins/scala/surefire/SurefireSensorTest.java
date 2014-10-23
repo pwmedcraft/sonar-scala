@@ -43,21 +43,21 @@ public class SurefireSensorTest {
 
     @Test
     public void shouldExecuteOnReuseReports() {
-        when(project.getLanguageKey()).thenReturn(Scala.INSTANCE.getKey());
+        when(project.getLanguageKey()).thenReturn(Scala.KEY);
         when(project.getAnalysisType()).thenReturn(Project.AnalysisType.REUSE_REPORTS);
         assertTrue(sensor.shouldExecuteOnProject(project));
     }
 
     @Test
     public void shouldExecuteOnDynamicAnalysis() {
-        when(project.getLanguageKey()).thenReturn(Scala.INSTANCE.getKey());
+        when(project.getLanguageKey()).thenReturn(Scala.KEY);
         when(project.getAnalysisType()).thenReturn(Project.AnalysisType.DYNAMIC);
         assertTrue(sensor.shouldExecuteOnProject(project));
     }
 
     @Test
     public void shouldNotExecuteIfStaticAnalysis() {
-        when(project.getLanguageKey()).thenReturn(Scala.INSTANCE.getKey());
+        when(project.getLanguageKey()).thenReturn(Scala.KEY);
         when(project.getAnalysisType()).thenReturn(Project.AnalysisType.STATIC);
         assertFalse(sensor.shouldExecuteOnProject(project));
     }

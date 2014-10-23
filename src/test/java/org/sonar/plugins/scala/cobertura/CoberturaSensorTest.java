@@ -51,7 +51,7 @@ public class CoberturaSensorTest {
   @Test
   public void shouldNotExecuteIfStaticAnalysis() {
     Project project = mock(Project.class);
-    when(project.getLanguageKey()).thenReturn(Scala.INSTANCE.getKey());
+    when(project.getLanguageKey()).thenReturn(Scala.KEY);
     when(project.getAnalysisType()).thenReturn(Project.AnalysisType.STATIC);
     assertFalse(sensor.shouldExecuteOnProject(project));
   }
