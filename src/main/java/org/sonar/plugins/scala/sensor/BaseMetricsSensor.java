@@ -20,9 +20,7 @@
 package org.sonar.plugins.scala.sensor;
 
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -31,12 +29,11 @@ import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoreMetrics;
+import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.scala.compiler.Lexer;
 import org.sonar.plugins.scala.language.Comment;
 import org.sonar.plugins.scala.language.Scala;
-import org.sonar.plugins.scala.language.ScalaFile;
-import org.sonar.plugins.scala.language.ScalaPackage;
 import org.sonar.plugins.scala.metrics.CommentsAnalyzer;
 import org.sonar.plugins.scala.metrics.ComplexityCalculator;
 import org.sonar.plugins.scala.metrics.FunctionCounter;
@@ -63,17 +60,13 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
   }
 
   public void analyse(Project project, SensorContext sensorContext) {
-  //  final ProjectFileSystem fileSystem = project.getFileSystem();
- //   final String charset = fileSystem.getSourceCharset().toString();
 	final String charset = fileSystem.encoding().toString();   
-    final Set<ScalaPackage> packages = new HashSet<ScalaPackage>();
 
-    MetricDistribution complexityOfClasses = null;
+	MetricDistribution complexityOfClasses = null;
     MetricDistribution complexityOfFunctions = null;
 
     for (InputFile inputFile : fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Scala.KEY))) {
-      final ScalaFile scalaFile = ScalaFile.fromInputFile(inputFile);
-      packages.add(scalaFile.getParent());
+      final File scalaFile = File.fromIOFile(inputFile.file(), project);
       sensorContext.saveMeasure(scalaFile, CoreMetrics.FILES, 1.0);
 
       try {
@@ -106,23 +99,22 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
     if (complexityOfFunctions != null)
       sensorContext.saveMeasure(complexityOfFunctions.getMeasure());
 
-   // computePackagesMetric(sensorContext, packages);
   }
 
-  private void addLineMetrics(SensorContext sensorContext, ScalaFile scalaFile, LinesAnalyzer linesAnalyzer) {
+  private void addLineMetrics(SensorContext sensorContext, File scalaFile, LinesAnalyzer linesAnalyzer) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.LINES, (double) linesAnalyzer.countLines());
     sensorContext.saveMeasure(scalaFile, CoreMetrics.NCLOC, (double) linesAnalyzer.countLinesOfCode());
   }
 
-  private void addCommentMetrics(SensorContext sensorContext, ScalaFile scalaFile,
+  private void addCommentMetrics(SensorContext sensorContext, File scalaFile,
       CommentsAnalyzer commentsAnalyzer) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENT_LINES,
         (double) commentsAnalyzer.countCommentLines());
-//    sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENTED_OUT_CODE_LINES,
-//        (double) commentsAnalyzer.countCommentedOutLinesOfCode());
+    sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENTED_OUT_CODE_LINES,
+        (double) commentsAnalyzer.countCommentedOutLinesOfCode());
   }
 
-  private void addCodeMetrics(SensorContext sensorContext, ScalaFile scalaFile, String source) {
+  private void addCodeMetrics(SensorContext sensorContext, File scalaFile, String source) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.CLASSES,
         (double) TypeCounter.countTypes(source));
     sensorContext.saveMeasure(scalaFile, CoreMetrics.STATEMENTS,
@@ -133,7 +125,7 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
         (double) ComplexityCalculator.measureComplexity(source));
   }
 
-  private void addPublicApiMetrics(SensorContext sensorContext, ScalaFile scalaFile, String source) {
+  private void addPublicApiMetrics(SensorContext sensorContext, File scalaFile, String source) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.PUBLIC_API,
         (double) PublicApiCounter.countPublicApi(source));
     sensorContext.saveMeasure(scalaFile, CoreMetrics.PUBLIC_UNDOCUMENTED_API,
@@ -149,12 +141,6 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
     oldDistribution.add(newDistribution);
     return oldDistribution;
   }
-
-//  private void computePackagesMetric(SensorContext sensorContext, Set<ScalaPackage> packages) {
-//    for (ScalaPackage currentPackage : packages) {
-//      sensorContext.saveMeasure(currentPackage, CoreMetrics.PACKAGES, 1.0);
-//    }
-//  }
 
   @Override
   public String toString() {
