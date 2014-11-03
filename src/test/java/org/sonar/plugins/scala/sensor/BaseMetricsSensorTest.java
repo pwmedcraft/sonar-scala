@@ -56,8 +56,9 @@ public class BaseMetricsSensorTest {
   public void setUp() {
 	this.settings = new Settings();
 	this.fileSystem = new DefaultFileSystem();
-	this.baseMetricsSensor = new BaseMetricsSensor(mock(Scala.class), fileSystem);
-    this.project = mock(Project.class);
+	this.baseMetricsSensor = new BaseMetricsSensor(new Scala(settings), fileSystem);
+    
+	this.project = mock(Project.class);
     this.sensorContext = mock(SensorContext.class);
   }
 

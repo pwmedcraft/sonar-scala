@@ -20,27 +20,32 @@
 package org.sonar.plugins.scala.sensor;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.scala.language.Scala;
+import org.sonar.plugins.scala.util.FileTestUtils;
 
 public class AbstractScalaSensorTest {
 
   private AbstractScalaSensor abstractScalaSensor;
+  private Settings settings;
+  private DefaultFileSystem fileSystem;
+  
 
   @Before
   public void setUp() {
 	Settings settings = new Settings();
-    abstractScalaSensor = new AbstractScalaSensor(new Scala(settings), mock(FileSystem.class)) {
+	fileSystem = new DefaultFileSystem();
+    abstractScalaSensor = new AbstractScalaSensor(new Scala(settings), fileSystem) {
 
       public void analyse(Project project, SensorContext context) {
         // dummy implementation, never called in this test
@@ -49,18 +54,23 @@ public class AbstractScalaSensorTest {
   }
 
   @Test
-  public void shouldOnlyExecuteOnScalaProjects() {
-    Project scalaProject = mock(Project.class);
-    when(scalaProject.getLanguage()).thenReturn(new Scala(new Settings()));
-    Project javaProject = mock(Project.class);
- //   when(javaProject.getLanguage()).thenReturn(Java.INSTANCE);
+  public void shouldExecuteOnScalaProjects() {
+	Project scalaProject = mock(Project.class);
+	FileTestUtils.addInputFiles(fileSystem, FileTestUtils.getInputFiles(
+				"/scalaSourceImporter/", "MainFile", "scala", 1), false);
+	assertTrue(abstractScalaSensor.shouldExecuteOnProject(scalaProject));
+  }
 
-   // assertTrue(abstractScalaSensor.shouldExecuteOnProject(scalaProject));
-  //  assertFalse(abstractScalaSensor.shouldExecuteOnProject(javaProject));
+  @Test
+  public void shouldNotExecuteOnJavaProjects() {
+ 	Project javaProject = mock(Project.class);
+ 	FileTestUtils.addInputFiles(fileSystem, FileTestUtils.getInputFiles(
+				"/scalaSourceImporter/", "JavaMainFile", "java", 1), false);
+	assertFalse(abstractScalaSensor.shouldExecuteOnProject(javaProject));
   }
 
   @Test
   public void shouldHaveScalaAsLanguage() {
-    assertThat(abstractScalaSensor.getScala(), equalTo(new Scala(new Settings())));
+	assertThat(abstractScalaSensor.getScala(), equalTo(new Scala(settings)));
   }
 }

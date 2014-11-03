@@ -48,19 +48,7 @@ public final class FileTestUtils {
   public static String getRelativePath(String path) {
     return FileTestUtils.class.getResource(path).getFile();
   }
-
   
-  public static void addInputFiles(FileSystem fs, Iterable<InputFile> inputFiles, boolean testFile) {
-	 //   if (! (fs instanceof DefaultFileSystem)) return;
-	    if (inputFiles == null) return;
-	    for (InputFile inputFile : inputFiles) {
-	      if (! (inputFile instanceof DefaultInputFile)) continue;
-	      ((DefaultInputFile) inputFile).setType(testFile ? InputFile.Type.TEST : InputFile.Type.MAIN);
-	      ((DefaultFileSystem) fs).add(inputFile);
-	    }
-	  }
-
- 
   public static List<InputFile> getInputFiles(String path, String fileNameBase, int numberOfFiles) {
     return getInputFiles(path, fileNameBase, "scala", numberOfFiles);
   }
@@ -70,20 +58,30 @@ public final class FileTestUtils {
 
     URL resourceURL = FileTestUtils.class.getResource(path + fileNameBase + "1." + fileSuffix);
     for (int i = 1; resourceURL != null && i <= numberOfFiles; ) {
-        String relativePath = path + fileNameBase + i + "." + fileSuffix;
-        if (relativePath.charAt(0) == '/') {
+      String relativePath = path + fileNameBase + i + "." + fileSuffix;
+  
+      if (relativePath.charAt(0) == '/') {
             relativePath = relativePath.substring(1);
-        }
-        DefaultInputFile inputFile = new DefaultInputFile(relativePath);
-        inputFile.setAbsolutePath(resourceURL.getPath());
-        inputFile.setLanguage(fileSuffix);
-    	mainFiles.add(inputFile);
+      }
+     
+      DefaultInputFile inputFile = new DefaultInputFile(relativePath);
+      inputFile.setLanguage(fileSuffix);
+      inputFile.setAbsolutePath(resourceURL.getPath());
+      
+      mainFiles.add(inputFile);
       resourceURL = FileTestUtils.class.getResource(path + fileNameBase + (++i) + "." + fileSuffix);
     }
 
     return mainFiles;
   }
-
+  
+  public static void addInputFiles(FileSystem fileSystem, Iterable<InputFile> inputFiles, boolean testFile) {
+    for (InputFile inputFile : inputFiles) {
+    	((DefaultInputFile) inputFile).setType(testFile ? InputFile.Type.TEST : InputFile.Type.MAIN);
+    	((DefaultFileSystem) fileSystem).add(inputFile);
+    }
+  }
+  
   public static List<String> getContentOfFiles(String path, String fileNameBase, int numberOfFiles) throws IOException {
     List<String> contentOfFiles = new ArrayList<String>();
 
