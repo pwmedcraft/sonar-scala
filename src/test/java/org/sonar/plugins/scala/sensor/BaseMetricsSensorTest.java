@@ -25,23 +25,19 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
-import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.measures.CoreMetrics;
 import org.sonar.api.measures.Measure;
 import org.sonar.api.measures.Metric;
 import org.sonar.api.resources.Project;
-import org.sonar.api.resources.ProjectFileSystem;
 import org.sonar.plugins.scala.language.Scala;
-import org.sonar.plugins.scala.language.ScalaPackage;
 import org.sonar.plugins.scala.util.FileTestUtils;
 
 public class BaseMetricsSensorTest {
@@ -50,22 +46,19 @@ public class BaseMetricsSensorTest {
 
   private BaseMetricsSensor baseMetricsSensor;
 
-  private ProjectFileSystem fileSystem;
+  private DefaultFileSystem fileSystem;
   private Project project;
   private SensorContext sensorContext;
+  private Settings settings;
+  
 
   @Before
   public void setUp() {
-	Settings settings = new Settings();
-    baseMetricsSensor = new BaseMetricsSensor(new Scala(settings), mock(FileSystem.class));
-
-    fileSystem = mock(ProjectFileSystem.class);
-    when(fileSystem.getSourceCharset()).thenReturn(Charset.defaultCharset());
-
-    project = mock(Project.class);
-    when(project.getFileSystem()).thenReturn(fileSystem);
-
-    sensorContext = mock(SensorContext.class);
+	this.settings = new Settings();
+	this.fileSystem = new DefaultFileSystem();
+	this.baseMetricsSensor = new BaseMetricsSensor(mock(Scala.class), fileSystem);
+    this.project = mock(Project.class);
+    this.sensorContext = mock(SensorContext.class);
   }
 
   @Test
@@ -84,30 +77,6 @@ public class BaseMetricsSensorTest {
   public void shouldMeasureNothingWhenNoFiles() {
     analyseScalaFiles(0);
     verifyNoMoreInteractions(sensorContext);
-  }
-
-  @Test
-  public void shouldIncrementPackageMetricForOneScalaFile() {
-    analyseOneScalaFile();
-    verify(sensorContext).saveMeasure(any(ScalaPackage.class), eq(CoreMetrics.PACKAGES), eq(1.0));
-  }
-
-  @Test
-  public void shouldIncreasePackageMetricForAllScalaFiles() {
-    analyseAllScalaFiles();
-    verify(sensorContext, times(2)).saveMeasure(any(ScalaPackage.class), eq(CoreMetrics.PACKAGES), eq(1.0));
-  }
-
-  @Test
-  public void shouldMeasureClassComplexityDistributionForOneScalaFileOnlyOnce() {
-    analyseOneScalaFile();
-    verify(sensorContext).saveMeasure(eq(new Measure(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION)));
-  }
-
-  @Test
-  public void shouldMeasureClassComplexityDistributionForAllScalaFilesOnlyOnce() {
-    analyseAllScalaFiles();
-    verify(sensorContext).saveMeasure(eq(new Measure(CoreMetrics.CLASS_COMPLEXITY_DISTRIBUTION)));
   }
 
   @Test
@@ -140,14 +109,12 @@ public class BaseMetricsSensorTest {
   public void shouldMeasureCommentMetricsForOneScalaFile() {
     analyseOneScalaFile();
     verifyMeasuring(CoreMetrics.COMMENT_LINES);
-    verifyMeasuring(CoreMetrics.COMMENTED_OUT_CODE_LINES);
   }
 
   @Test
   public void shouldMeasureCommentMetricsForAllScalaFiles() {
     analyseAllScalaFiles();
     verifyMeasuring(CoreMetrics.COMMENT_LINES, NUMBER_OF_FILES);
-    verifyMeasuring(CoreMetrics.COMMENTED_OUT_CODE_LINES, NUMBER_OF_FILES);
   }
 
   @Test
@@ -209,8 +176,7 @@ public class BaseMetricsSensorTest {
   }
 
   private void analyseScalaFiles(int numberOfFiles) {
-    when(fileSystem.mainFiles(baseMetricsSensor.getScala().getKey()))
-        .thenReturn(FileTestUtils.getInputFiles("/baseMetricsSensor/", "ScalaFile", numberOfFiles));
-    baseMetricsSensor.analyse(project, sensorContext);
+	    FileTestUtils.addInputFiles(fileSystem, FileTestUtils.getInputFiles("/baseMetricsSensor/", "ScalaFile", numberOfFiles), false);
+	    baseMetricsSensor.analyse(project, sensorContext);
   }
 }
