@@ -69,8 +69,8 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
     FilePredicates filePredicates = fileSystem.predicates();
 
     for (InputFile inputFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.KEY), filePredicates.hasType(InputFile.Type.MAIN)))) {
-      final File scalaFile = File.fromIOFile(inputFile.file(), project);
-      sensorContext.saveMeasure(scalaFile, CoreMetrics.FILES, 1.0);
+     
+      sensorContext.saveMeasure(inputFile, CoreMetrics.FILES, 1.0);
 
       try {
         final String source = FileUtils.readFileToString(inputFile.file(), charset);
@@ -80,10 +80,10 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
         final CommentsAnalyzer commentsAnalyzer = new CommentsAnalyzer(comments);
         final LinesAnalyzer linesAnalyzer = new LinesAnalyzer(lines, commentsAnalyzer);
 
-        addLineMetrics(sensorContext, scalaFile, linesAnalyzer);
-        addCommentMetrics(sensorContext, scalaFile, commentsAnalyzer);
-        addCodeMetrics(sensorContext, scalaFile, source);
-        addPublicApiMetrics(sensorContext, scalaFile, source);
+        addLineMetrics(sensorContext, inputFile, linesAnalyzer);
+        addCommentMetrics(sensorContext, inputFile, commentsAnalyzer);
+        addCodeMetrics(sensorContext, inputFile, source);
+        addPublicApiMetrics(sensorContext, inputFile, source);
 
         complexityOfClasses = sumUpMetricDistributions(complexityOfClasses,
             ComplexityCalculator.measureComplexityOfClasses(source));
@@ -104,18 +104,18 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
 
   }
 
-  private void addLineMetrics(SensorContext sensorContext, File scalaFile, LinesAnalyzer linesAnalyzer) {
+  private void addLineMetrics(SensorContext sensorContext, InputFile scalaFile, LinesAnalyzer linesAnalyzer) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.LINES, (double) linesAnalyzer.countLines());
     sensorContext.saveMeasure(scalaFile, CoreMetrics.NCLOC, (double) linesAnalyzer.countLinesOfCode());
   }
 
-  private void addCommentMetrics(SensorContext sensorContext, File scalaFile,
+  private void addCommentMetrics(SensorContext sensorContext, InputFile scalaFile,
       CommentsAnalyzer commentsAnalyzer) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENT_LINES,
         (double) commentsAnalyzer.countCommentLines());
   }
 
-  private void addCodeMetrics(SensorContext sensorContext, File scalaFile, String source) {
+  private void addCodeMetrics(SensorContext sensorContext, InputFile scalaFile, String source) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.CLASSES,
         (double) TypeCounter.countTypes(source));
     sensorContext.saveMeasure(scalaFile, CoreMetrics.STATEMENTS,
@@ -126,7 +126,7 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
         (double) ComplexityCalculator.measureComplexity(source));
   }
 
-  private void addPublicApiMetrics(SensorContext sensorContext, File scalaFile, String source) {
+  private void addPublicApiMetrics(SensorContext sensorContext, InputFile scalaFile, String source) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.PUBLIC_API,
         (double) PublicApiCounter.countPublicApi(source));
     sensorContext.saveMeasure(scalaFile, CoreMetrics.PUBLIC_UNDOCUMENTED_API,
