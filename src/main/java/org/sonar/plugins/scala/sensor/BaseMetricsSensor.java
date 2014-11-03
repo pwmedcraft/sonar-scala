@@ -30,7 +30,6 @@ import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoreMetrics;
-import org.sonar.api.resources.File;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.scala.compiler.Lexer;
 import org.sonar.plugins.scala.language.Comment;
@@ -63,9 +62,7 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
   public void analyse(Project project, SensorContext sensorContext) {
 	final String charset = fileSystem.encoding().toString();   
 
-	MetricDistribution complexityOfClasses = null;
-    MetricDistribution complexityOfFunctions = null;
-    
+    MetricDistribution complexityOfFunctions = null;    
     FilePredicates filePredicates = fileSystem.predicates();
 
     for (InputFile inputFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.KEY), filePredicates.hasType(InputFile.Type.MAIN)))) {
@@ -85,9 +82,6 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
         addCodeMetrics(sensorContext, inputFile, source);
         addPublicApiMetrics(sensorContext, inputFile, source);
 
-        complexityOfClasses = sumUpMetricDistributions(complexityOfClasses,
-            ComplexityCalculator.measureComplexityOfClasses(source));
-
         complexityOfFunctions = sumUpMetricDistributions(complexityOfFunctions,
             ComplexityCalculator.measureComplexityOfFunctions(source));
 
@@ -95,9 +89,6 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
         LOGGER.error("Could not read the file: " + inputFile.absolutePath(), ioe);
       }
     }
-
-    if (complexityOfClasses != null)
-      sensorContext.saveMeasure(complexityOfClasses.getMeasure());
 
     if (complexityOfFunctions != null)
       sensorContext.saveMeasure(complexityOfFunctions.getMeasure());
