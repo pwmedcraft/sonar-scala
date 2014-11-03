@@ -19,7 +19,11 @@
  */
 package org.sonar.plugins.scala.sensor;
 
-import com.google.common.collect.Sets;
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.sonar.api.batch.Event;
 import org.sonar.api.batch.SensorContext;
@@ -32,26 +36,18 @@ import org.sonar.api.resources.ProjectLink;
 import org.sonar.api.resources.Resource;
 import org.sonar.api.rules.Violation;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
 /**
  * This fake helps to detect duplicate resources in tests.
  */
 class FakeSensorContext implements SensorContext {
 
-  private final Set<Resource> resources = Sets.newHashSet();
-
+ 
+  @Deprecated
   public void saveSource(Resource reference, String source) {
-    if (resources.contains(reference)) {
-      throw new RuntimeException("Duplicate resources in sensor context are not allowed!");
-    }
-    resources.add(reference);
+	  
   }
 
+  @Deprecated
   public boolean index(Resource resource) {
     return false;
   }
