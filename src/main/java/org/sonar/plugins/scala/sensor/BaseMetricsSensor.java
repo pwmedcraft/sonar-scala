@@ -26,6 +26,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.batch.fs.FilePredicates;
 import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.InputFile;
 import org.sonar.api.measures.CoreMetrics;
@@ -64,8 +65,10 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
 
 	MetricDistribution complexityOfClasses = null;
     MetricDistribution complexityOfFunctions = null;
+    
+    FilePredicates filePredicates = fileSystem.predicates();
 
-    for (InputFile inputFile : fileSystem.inputFiles(fileSystem.predicates().hasLanguage(Scala.KEY))) {
+    for (InputFile inputFile : fileSystem.inputFiles(filePredicates.and(filePredicates.hasLanguage(Scala.KEY), filePredicates.hasType(InputFile.Type.MAIN)))) {
       final File scalaFile = File.fromIOFile(inputFile.file(), project);
       sensorContext.saveMeasure(scalaFile, CoreMetrics.FILES, 1.0);
 
@@ -110,8 +113,6 @@ public class BaseMetricsSensor extends AbstractScalaSensor {
       CommentsAnalyzer commentsAnalyzer) {
     sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENT_LINES,
         (double) commentsAnalyzer.countCommentLines());
-    sensorContext.saveMeasure(scalaFile, CoreMetrics.COMMENTED_OUT_CODE_LINES,
-        (double) commentsAnalyzer.countCommentedOutLinesOfCode());
   }
 
   private void addCodeMetrics(SensorContext sensorContext, File scalaFile, String source) {
