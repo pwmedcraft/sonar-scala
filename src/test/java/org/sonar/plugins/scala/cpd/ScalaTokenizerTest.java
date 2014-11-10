@@ -19,92 +19,71 @@
  */
 package org.sonar.plugins.scala.cpd;
 
+import static org.junit.Assert.assertEquals;
+
+
+import java.io.File;
+
+import net.sourceforge.pmd.cpd.SourceCode;
+import net.sourceforge.pmd.cpd.TokenEntry;
+import net.sourceforge.pmd.cpd.Tokenizer;
+import net.sourceforge.pmd.cpd.Tokens;
+
+import org.apache.commons.io.FileUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 public class ScalaTokenizerTest {
 
-//  @Before
-//  public void init() {
-//    TokenEntry.clearImages();
-//  }
-//
-//  @Test
-//  public void noDuplications() throws IOException {
-//    CPD cpd = getCPD(10);
-//    cpd.add(resourceToFile("/cpd/NoDuplications.scala"));
-//    cpd.go();
-//    assertThat(getMatches(cpd).size(), is(0));
-//  }
-//
-//  @Test
-//  public void noDuplicationsWith6Tokens() throws IOException {
-//    CPD cpd = getCPD(6);
-//    cpd.add(resourceToFile("/cpd/Duplications5Tokens.scala"));
-//    cpd.go();
-//    assertThat(getMatches(cpd).size(), is(0));
-//  }
-//
-//  @Test
-//  public void duplicationWith5Tokens() throws IOException {
-//    CPD cpd = getCPD(5);
-//    cpd.add(resourceToFile("/cpd/Duplications5Tokens.scala"));
-//    cpd.go();
-//    List<Match> matches = getMatches(cpd);
-//    assertThat(matches.size(), is(1));
-//    assertThat(matches.get(0).getFirstMark().getBeginLine(), is(2));
-//    assertThat(matches.get(0).getSecondMark().getBeginLine(), is(5));
-//  }
-//
-//  @Test
-//  public void newLineTokenEnables5TokenDuplication() throws IOException {
-//    CPD cpd = getCPD(5);
-//    cpd.add(resourceToFile("/cpd/NewlineToken.scala"));
-//    cpd.go();
-//    List<Match> matches = getMatches(cpd);
-//    assertThat(matches.get(0).getFirstMark().getBeginLine(), is(2));
-//    assertThat(matches.get(0).getSecondMark().getBeginLine(), is(3));
-//  }
-//
-//  @Test
-//  public void newLineAndNewLinesTokensNo5TokensDuplication() throws IOException {
-//    CPD cpd = getCPD(5);
-//    cpd.add(resourceToFile("/cpd/NewlinesToken.scala"));
-//    cpd.go();
-//    assertThat(getMatches(cpd).size(), is(0));
-//  }
-//
-//  @Test
-//  public void twoDuplicatedBlocks() throws IOException {
-//    CPD cpd = getCPD(5);
-//    cpd.add(resourceToFile("/cpd/TwoDuplicatedBlocks.scala"));
-//    cpd.go();
-//    List<Match> matches = getMatches(cpd);
-//    assertThat(matches.get(0).getFirstMark().getBeginLine(), is(2));
-//    assertThat(matches.get(0).getSecondMark().getBeginLine(), is(7));
-//    assertThat(matches.get(0).getLineCount(), is(4));
-//  }
-//
-//  private File resourceToFile(String path) {
-//    return FileUtils.toFile(getClass().getResource(path));
-//  }
-//
-//  private CPD getCPD(int minimumTokens) {
-//    AbstractLanguage language = new AbstractLanguage(new ScalaTokenizer(), "scala") {
-//    };
-//    CPD cpd = new CPD(minimumTokens, language);
-//    cpd.setEncoding(Charset.defaultCharset().name());
-//    cpd.setLoadSourceCodeSlices(false);
-//    return cpd;
-//  }
-//
-//  private List<Match> getMatches(CPD cpd) {
-//    List<Match> matches = new ArrayList<Match>();
-//
-//    Iterator<Match> iterator = cpd.getMatches();
-//    while (iterator.hasNext()) {
-//      matches.add(iterator.next());
-//    }
-//
-//    return matches;
-//  }
+    @Before
+    public void init() {
+        TokenEntry.clearImages();
+    }
+
+    @Test
+    public void test1() throws Throwable {
+        Tokenizer tokenizer = new ScalaTokenizer();
+        SourceCode sourceCode = new SourceCode(new SourceCode.FileCodeLoader(resourceToFile("/cpd/NewlineToken.scala"), "UTF-8"));
+        Tokens tokens = new Tokens();
+        tokenizer.tokenize(sourceCode, tokens);
+        
+        assertEquals(19, tokens.size());
+    }
+    
+    @Test
+    public void test2() throws Throwable {
+        Tokenizer tokenizer = new ScalaTokenizer();
+        SourceCode sourceCode = new SourceCode(new SourceCode.FileCodeLoader(resourceToFile("/cpd/NewlinesToken.scala"), "UTF-8"));
+        Tokens tokens = new Tokens();
+        tokenizer.tokenize(sourceCode, tokens);
+        
+        assertEquals(24, tokens.size());
+    }
+    
+    @Test
+    public void test3() throws Throwable {    	
+    	Tokenizer tokenizer = new ScalaTokenizer();
+        SourceCode sourceCode = new SourceCode(new SourceCode.FileCodeLoader(resourceToFile("/cpd/Empty.scala"), "UTF-8"));
+        Tokens tokens = new Tokens();
+        tokenizer.tokenize(sourceCode, tokens);
+        
+        assertEquals(1, tokens.size());
+    }
+    
+    @Test
+    public void test4() throws Throwable {    	
+    	Tokenizer tokenizer = new ScalaTokenizer();
+        SourceCode sourceCode = new SourceCode(new SourceCode.FileCodeLoader(resourceToFile("/cpd/NewlinesToken.scala"), "UTF-8"));
+        Tokens tokens = new Tokens();
+        tokenizer.tokenize(sourceCode, tokens);
+        
+        assertEquals("class NewlinesToken {", sourceCode.getSlice(1, 1));
+        assertEquals("val i = 42", sourceCode.getSlice(2, 2));
+        
+    }
+
+    private File resourceToFile(String path) {
+        return FileUtils.toFile(getClass().getResource(path));
+    }
 
 }

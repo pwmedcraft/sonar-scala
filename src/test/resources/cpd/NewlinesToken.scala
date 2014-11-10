@@ -3,4 +3,5 @@ class NewlinesToken {
   val j = 1000
 
   println("hehe")
+  println("")
 }
