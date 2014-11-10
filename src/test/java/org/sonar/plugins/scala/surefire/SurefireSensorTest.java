@@ -19,55 +19,32 @@
  */
 package org.sonar.plugins.scala.surefire;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
 import org.junit.Before;
+import org.junit.Test;
 import org.sonar.api.batch.CoverageExtension;
+import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.scala.language.Scala;
-
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 public class SurefireSensorTest {
 
     private SurefireSensor sensor;
+    private Settings settings;
+    private FileSystem fileSystem;
     private Project project;
     
     @Before
     public void setUp() {
-    	sensor = new SurefireSensor(mock(Settings.class));
+    	this.settings = new Settings();
+    	this.fileSystem = new DefaultFileSystem();
+    	sensor = new SurefireSensor(settings, fileSystem);
     	project = mock(Project.class);
     }
 
-    @Test
-    public void shouldExecuteOnReuseReports() {
-        when(project.getLanguageKey()).thenReturn(Scala.KEY);
-        when(project.getAnalysisType()).thenReturn(Project.AnalysisType.REUSE_REPORTS);
-        assertTrue(sensor.shouldExecuteOnProject(project));
-    }
-
-    @Test
-    public void shouldExecuteOnDynamicAnalysis() {
-        when(project.getLanguageKey()).thenReturn(Scala.KEY);
-        when(project.getAnalysisType()).thenReturn(Project.AnalysisType.DYNAMIC);
-        assertTrue(sensor.shouldExecuteOnProject(project));
-    }
-
-    @Test
-    public void shouldNotExecuteIfStaticAnalysis() {
-        when(project.getLanguageKey()).thenReturn(Scala.KEY);
-        when(project.getAnalysisType()).thenReturn(Project.AnalysisType.STATIC);
-        assertFalse(sensor.shouldExecuteOnProject(project));
-    }
-
-    @Test
-    public void shouldNotExecuteOnJavaProject() {
-        when(project.getLanguageKey()).thenReturn("java");
-        when(project.getAnalysisType()).thenReturn(Project.AnalysisType.DYNAMIC);
-        assertFalse(sensor.shouldExecuteOnProject(project));
-    }
 
     @Test
     public void shouldDependOnCoverageSensors() {
