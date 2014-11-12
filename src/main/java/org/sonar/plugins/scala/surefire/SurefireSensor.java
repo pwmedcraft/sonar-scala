@@ -49,7 +49,14 @@ public class SurefireSensor implements Sensor {
   }
   
   public boolean shouldExecuteOnProject(Project project) {
-	  return fileSystem.hasFiles(fileSystem.predicates().hasLanguage(Scala.KEY));
+      
+      if(project.getAnalysisType().isDynamic(true) && Scala.INSTANCE.getKey().equals(project.getLanguageKey())){
+          LOG.info("SurefireSensor will be executed");                
+          return true;
+      } else {
+          LOG.info("SurefireSensor will NOT be executed"); 
+          return false;
+      }
   }
 
   public void analyse(Project project, SensorContext context) {

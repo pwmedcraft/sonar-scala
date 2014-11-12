@@ -78,8 +78,6 @@ public class ScalaTokenizerTest {
         tokenizer.tokenize(sourceCode, tokens);
         
         assertEquals("class NewlinesToken {", sourceCode.getSlice(1, 1));
-        assertEquals("val i = 42", sourceCode.getSlice(2, 2));
-        
     }
 
     private File resourceToFile(String path) {

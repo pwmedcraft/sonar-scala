@@ -19,7 +19,6 @@
  */
 package org.sonar.plugins.scala.language;
 
-import org.sonar.api.config.Settings;
 import org.sonar.api.resources.AbstractLanguage;
 
 /**
@@ -33,12 +32,10 @@ public class Scala extends AbstractLanguage {
   public static final String KEY = "scala";
   public static final String NAME = "Scala";
   
-  private final Settings settings;
-
+  public static final Scala INSTANCE = new Scala(); 
   
-  public Scala(Settings settings) {
+  public Scala() {
     super(KEY, NAME);
-    this.settings =  settings;
   }
 
   public String[] getFileSuffixes() {

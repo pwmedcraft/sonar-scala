@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
-import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 import org.sonar.plugins.scala.language.Scala;
 import org.sonar.plugins.scala.util.FileTestUtils;
@@ -37,15 +36,13 @@ import org.sonar.plugins.scala.util.FileTestUtils;
 public class AbstractScalaSensorTest {
 
   private AbstractScalaSensor abstractScalaSensor;
-  private Settings settings;
   private DefaultFileSystem fileSystem;
   
 
   @Before
   public void setUp() {
-	Settings settings = new Settings();
 	fileSystem = new DefaultFileSystem();
-    abstractScalaSensor = new AbstractScalaSensor(new Scala(settings), fileSystem) {
+    abstractScalaSensor = new AbstractScalaSensor(new Scala(), fileSystem) {
 
       public void analyse(Project project, SensorContext context) {
         // dummy implementation, never called in this test
@@ -71,6 +68,6 @@ public class AbstractScalaSensorTest {
 
   @Test
   public void shouldHaveScalaAsLanguage() {
-	assertThat(abstractScalaSensor.getScala(), equalTo(new Scala(settings)));
+	assertThat(abstractScalaSensor.getScala(), equalTo(new Scala()));
   }
 }

@@ -49,14 +49,12 @@ public class BaseMetricsSensorTest {
   private DefaultFileSystem fileSystem;
   private Project project;
   private SensorContext sensorContext;
-  private Settings settings;
   
 
   @Before
   public void setUp() {
-	this.settings = new Settings();
 	this.fileSystem = new DefaultFileSystem();
-	this.baseMetricsSensor = new BaseMetricsSensor(new Scala(settings), fileSystem);
+	this.baseMetricsSensor = new BaseMetricsSensor(new Scala(), fileSystem);
     
 	this.project = mock(Project.class);
     this.sensorContext = mock(SensorContext.class);
