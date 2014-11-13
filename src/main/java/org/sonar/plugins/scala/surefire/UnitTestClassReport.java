@@ -19,9 +19,10 @@
  */
 package org.sonar.plugins.scala.surefire;
 
-import com.google.common.collect.Lists;
-
+import java.util.Collections;
 import java.util.List;
+
+import com.google.common.collect.Lists;
 
 public final class UnitTestClassReport {
   private long errors = 0L;
@@ -46,8 +47,12 @@ public final class UnitTestClassReport {
       errors += 1;
     }
     tests += 1;
-    durationMilliseconds += result.getDurationMilliseconds();
-    return this;
+    if (result.getDurationMilliseconds() < 0) {
+	  negativeTimeTestNumber += 1;
+	} else {
+	  durationMilliseconds += result.getDurationMilliseconds();
+	}
+	return this;
   }
 
   private void initResults() {
@@ -78,6 +83,13 @@ public final class UnitTestClassReport {
 
   public long getNegativeTimeTestNumber() {
 	    return negativeTimeTestNumber;
+	  }
+  
+  public List<UnitTestResult> getResults() {
+	    if (results == null) {
+	      return Collections.emptyList();
+	    }
+	    return results;
 	  }
   
   public String toXml() {

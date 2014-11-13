@@ -19,9 +19,9 @@
  */
 package org.sonar.plugins.scala.surefire;
 
-import com.google.common.collect.Maps;
-
 import java.util.Map;
+
+import com.google.common.collect.Maps;
 
 public class UnitTestIndex {
 
@@ -46,5 +46,9 @@ public class UnitTestIndex {
   public int size() {
     return indexByClassname.size();
   }
+  
+  public UnitTestClassReport get(String classname) {
+	    return indexByClassname.get(classname);
+	  }
 
 }
