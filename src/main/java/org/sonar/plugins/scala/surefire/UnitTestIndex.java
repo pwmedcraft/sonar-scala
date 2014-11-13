@@ -51,4 +51,19 @@ public class UnitTestIndex {
 	    return indexByClassname.get(classname);
 	  }
 
+  public UnitTestClassReport merge(String classname, String intoClassname) {
+	    UnitTestClassReport from = indexByClassname.get(classname);
+	    if (from!=null) {
+	      UnitTestClassReport to = index(intoClassname);
+	      to.add(from);
+	      indexByClassname.remove(classname);
+	      return to;
+	    }
+	    return null;
+	  }
+
+	  public void remove(String classname) {
+	    indexByClassname.remove(classname);
+	  }
+  
 }

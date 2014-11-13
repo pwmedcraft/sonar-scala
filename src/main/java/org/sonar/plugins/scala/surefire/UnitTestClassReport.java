@@ -34,6 +34,13 @@ public final class UnitTestClassReport {
   
   private List<UnitTestResult> results = null;
 
+  public UnitTestClassReport add(UnitTestClassReport other) {
+    for (UnitTestResult otherResult : other.getResults()) {
+      add(otherResult);
+    }
+    return this;
+  }
+  
   public UnitTestClassReport add(UnitTestResult result) {
     initResults();
     results.add(result);
