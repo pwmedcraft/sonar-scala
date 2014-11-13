@@ -19,6 +19,8 @@
  */
 package org.sonar.plugins.scala.compiler
 
+import org.junit.Ignore
+
 import tools.nsc.ast.parser.Tokens._
 
 import java.util.Arrays
@@ -30,6 +32,7 @@ import org.sonar.plugins.scala.language.{ Comment, CommentType }
 import org.sonar.plugins.scala.util.FileTestUtils
 
 @RunWith(classOf[JUnitRunner])
+@Ignore("")
 class LexerSpec extends FlatSpec with ShouldMatchers {
 
   private val lexer = new Lexer()
