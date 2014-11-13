@@ -153,13 +153,5 @@ public class ScalaSurefireParser {
 	
 	  return fileSystem.inputFile(filePredicates. matchesPathPattern("**/*" + filename));
   }
-  
-//  for(InputFile inputFile : inputFiles){
-////System.out.println("inputFile: " + inputFile.absolutePath());
-////System.out.println("filename: " + filename);
-//if (inputFile.absolutePath().endsWith(filename)){
-//  return inputFile;
-//}
-//}
 
 }

@@ -20,10 +20,15 @@
 package org.sonar.plugins.scala.surefire;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.apache.maven.project.MavenProject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.maven.MavenPlugin;
+import org.sonar.api.batch.maven.MavenSurefireUtils;
 import org.sonar.api.config.Settings;
-import org.sonar.api.resources.Project;
 
 /**
  * @since 2.4
@@ -31,42 +36,57 @@ import org.sonar.api.resources.Project;
 public final class SurefireUtils {
 
   public static final String SUREFIRE_REPORTS_PATH_PROPERTY = "sonar.junit.reportsPath";
+  private static final Logger LOG = LoggerFactory.getLogger(SurefireUtils.class);
 
-  public static File getReportsDirectory(Settings settings, Project project) {
-    File dir = getReportsDirectoryFromProperty(settings, project);
+  private SurefireUtils() {
+		// to prevent instantiation
+  }
+
+  public static File getReportsDirectory(FileSystem fileSystem, Settings settings, MavenProject pom) {
+    File dir = getReportsDirectoryFromProperty(fileSystem, settings);
     if (dir == null) {
-      dir = getReportsDirectoryFromPluginConfiguration(project);
+      dir = getReportsDirectoryFromPluginConfiguration(pom);
     }
     if (dir == null) {
-      dir = getReportsDirectoryFromDefaultConfiguration(project);
+      dir = getReportsDirectoryFromDefaultConfiguration(fileSystem);
     }
     return dir;
   }
 
-  private static File getReportsDirectoryFromProperty(Settings settings, Project project) {
+  private static File getReportsDirectoryFromProperty(FileSystem fileSystem, Settings settings) {
     String path = settings.getString(SUREFIRE_REPORTS_PATH_PROPERTY);
     if (path != null) {
-      return project.getFileSystem().resolvePath(path);
+    	File reportsDir = null;
+		try {
+			File canonicalBase = fileSystem.baseDir().getCanonicalFile();
+			reportsDir = new File(canonicalBase, path);
+		} catch (IOException e) {
+			LOG.warn("Reports path could not be created", e);
+		}
+      return reportsDir;
     }
     return null;
   }
 
-  private static File getReportsDirectoryFromPluginConfiguration(Project project) {
-    MavenPlugin plugin = null; //MavenPlugin.getPlugin(project.getPom(), MavenSurefireUtils.GROUP_ID, MavenSurefireUtils.ARTIFACT_ID);
+  private static File getReportsDirectoryFromPluginConfiguration(MavenProject pom) {
+    MavenPlugin plugin = MavenPlugin.getPlugin(pom, MavenSurefireUtils.GROUP_ID, MavenSurefireUtils.ARTIFACT_ID);
     if (plugin != null) {
       String path = plugin.getParameter("reportsDirectory");
       if (path != null) {
-        return project.getFileSystem().resolvePath(path);
+        return new File(path);
       }
     }
     return null;
   }
 
-  private static File getReportsDirectoryFromDefaultConfiguration(Project project) {
-    return new File(project.getFileSystem().getBuildDir(), "surefire-reports");
+  private static File getReportsDirectoryFromDefaultConfiguration(FileSystem fileSystem) {
+	  File reportsDir = null;
+	  try {
+		File canonicalBase = fileSystem.baseDir().getCanonicalFile();
+		reportsDir = new File(canonicalBase, "target/surefire-reports");
+	} catch (IOException e) {
+		LOG.warn("Reports path could not be created", e);
+	}
+	  return reportsDir;
   }
-
-  private SurefireUtils() {
-  }
-
 }

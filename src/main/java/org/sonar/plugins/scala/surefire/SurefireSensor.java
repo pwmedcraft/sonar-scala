@@ -21,6 +21,7 @@ package org.sonar.plugins.scala.surefire;
 
 import java.io.File;
 
+import org.apache.maven.project.MavenProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.CoverageExtension;
@@ -37,6 +38,7 @@ public class SurefireSensor implements Sensor {
   private static final Logger LOG = LoggerFactory.getLogger(SurefireSensor.class);
   private final Settings settings;
   private final FileSystem fileSystem;
+  private MavenProject pom;
 
   @DependsUpon
   public Class<?> dependsUponCoverageSensors() {
@@ -48,9 +50,14 @@ public class SurefireSensor implements Sensor {
 	  this.fileSystem = fileSystem;
   }
   
-  public boolean shouldExecuteOnProject(Project project) {
-      
-      if(project.getAnalysisType().isDynamic(true) && Scala.INSTANCE.getKey().equals(project.getLanguageKey())){
+  public SurefireSensor (Settings settings, FileSystem fileSystem, MavenProject pom){
+	  this.settings = settings;
+	  this.fileSystem = fileSystem;
+	  this.pom = pom;
+  }
+  
+  public boolean shouldExecuteOnProject(Project project) {  
+      if( fileSystem.hasFiles(fileSystem.predicates().hasLanguage(Scala.KEY))){
           LOG.info("SurefireSensor will be executed");                
           return true;
       } else {
@@ -60,7 +67,7 @@ public class SurefireSensor implements Sensor {
   }
 
   public void analyse(Project project, SensorContext context) {
-	  File dir = SurefireUtils.getReportsDirectory(settings, project);
+	  File dir = SurefireUtils.getReportsDirectory(fileSystem, settings, pom);
 	    collect(project, context, dir);
   }
 
