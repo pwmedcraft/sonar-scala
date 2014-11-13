@@ -1,0 +1,109 @@
+<rules>
+    <rule key="magic.number">
+        <name><![CDATA[Magic Number]]></name>
+        <priority>MAJOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.MagicNumberChecker]]></configKey>
+        <description>Magic number</description>
+        <param key="ignore" type="STRING">
+            <defaultValue>-1,0,1,2,3</defaultValue>
+        </param>
+    </rule>
+    <rule key="import.grouping">
+        <name>Import grouping</name>
+        <priority>CRITICAL</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.ImportGroupingChecker]]></configKey>
+        <description>Import grouping</description>
+    </rule>
+    <rule key="if.brace">
+        <name>If brace</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.IfBraceChecker]]></configKey>
+        <description>If brace</description>
+        <param key="singleLineAllowed" type="BOOLEAN">
+            <defaultValue>true</defaultValue>
+        </param>
+        <param key="doubleLineAllowed" type="BOOLEAN">
+            <defaultValue>true</defaultValue>
+        </param>
+    </rule>
+    <rule key="whitespace.end.of.line">
+        <name>Whitespace end of line</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.file.WhitespaceEndOfLineChecker]]></configKey>
+        <description>Whitespace end of line</description>
+    </rule>
+    <rule key="lowercase.pattern.match">
+        <name>Lowercase pattern match</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.LowercasePatternMatchChecker]]></configKey>
+        <description>LowercasePatternMatchChecker</description>
+    </rule>
+    <rule key="procedure.declaration">
+        <name>Procedure Declaration</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.ProcedureDeclarationChecker]]></configKey>
+        <description>Procedure Declaration</description>
+    </rule>
+
+
+    <rule key="null">
+        <name>NullChecker</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.NullChecker]]></configKey>
+        <description>Null checker</description>
+    </rule>
+
+    <rule key="no.clone">
+        <name>No clone</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.NoCloneChecker]]></configKey>
+        <description>No clone</description>
+    </rule>
+
+    <rule key="no.finalize">
+        <name>No finalize</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.NoFinalizeChecker]]></configKey>
+        <description>No finalize</description>
+    </rule>
+
+    <rule key="covariant.equals">
+        <name>Covariant equals</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.CovariantEqualsChecker]]></configKey>
+        <description>Covariant equals</description>
+    </rule>
+
+    <rule key="file.size.limit">
+        <name>File length</name>
+        <priority>MINOR</priority>
+        <tag>size</tag>
+        <configKey><![CDATA[org.scalastyle.file.FileLengthChecker]]></configKey>
+        <description>FileLength</description>
+        <param key="maxFileLength" type="INTEGER">
+            <defaultValue>400</defaultValue>
+        </param>
+    </rule>
+
+    <rule key="deprecated.java">
+        <name>DeprecatedJava</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.DeprecatedJavaChecker]]></configKey>
+        <description>DeprecatedJava</description>
+    </rule>
+
+    <rule key="empty.class">
+        <name>EmptyClass</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.EmptyClassChecker]]></configKey>
+        <description>EmptyClass</description>
+    </rule>
+
+    <rule key="equals.hash.code">
+        <name>EqualsHash</name>
+        <priority>MINOR</priority>
+        <configKey><![CDATA[org.scalastyle.scalariform.EqualsHashCodeChecker]]></configKey>
+        <description>Equals .hash.code</description>
+    </rule>
+
+</rules>

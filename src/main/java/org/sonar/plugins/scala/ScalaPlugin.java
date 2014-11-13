@@ -19,17 +19,23 @@
  */
 package org.sonar.plugins.scala;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.sonar.api.Extension;
 import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.scala.cobertura.CoberturaSensor;
 import org.sonar.plugins.scala.colorization.ScalaColorizerFormat;
 import org.sonar.plugins.scala.language.Scala;
+import org.sonar.plugins.scala.scalastyle.ScalastyleDefaultProfile;
+import org.sonar.plugins.scala.scalastyle.ScalastyleExecutor;
+import org.sonar.plugins.scala.scalastyle.ScalastylePluginConfiguration;
+import org.sonar.plugins.scala.scalastyle.ScalastyleProfileImporter;
+import org.sonar.plugins.scala.scalastyle.ScalastyleRuleRepository;
+import org.sonar.plugins.scala.scalastyle.ScalastyleSensor;
 import org.sonar.plugins.scala.sensor.BaseMetricsSensor;
 import org.sonar.plugins.scala.sensor.ScalaSourceImporterSensor;
 import org.sonar.plugins.scala.surefire.SurefireSensor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is the entry point for all extensions made by the
@@ -46,9 +52,15 @@ public class ScalaPlugin extends SonarPlugin {
     extensions.add(ScalaSourceImporterSensor.class);
     extensions.add(ScalaColorizerFormat.class);
     extensions.add(BaseMetricsSensor.class);
-    extensions.add(ScalaDefaultProfile.class);
     extensions.add(CoberturaSensor.class);
     extensions.add(SurefireSensor.class);
+
+    extensions.add(ScalastyleRuleRepository.class);
+    extensions.add(ScalastylePluginConfiguration.class);
+    extensions.add(ScalastyleExecutor.class);
+    extensions.add(ScalastyleSensor.class);
+    extensions.add(ScalastyleProfileImporter.class);
+    extensions.add(ScalastyleDefaultProfile.class);
 
     return extensions;
   }

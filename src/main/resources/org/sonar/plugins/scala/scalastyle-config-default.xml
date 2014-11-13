@@ -1,0 +1,68 @@
+<scalastyle>
+    <name>Scalastyle Base Default configuration</name>
+    <!-- http://www.scalastyle.org/rules-0.4.0.html -->
+    <check enabled="true" class="org.scalastyle.scalariform.NullChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.scalariform.NoCloneChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.scalariform.NoFinalizeChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.scalariform.CovariantEqualsChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.file.FileLengthChecker" level="error">
+        <parameters>
+            <parameter name="maxFileLength">400</parameter>
+        </parameters>
+    </check>
+    <check enabled="true" class="org.scalastyle.file.WhitespaceEndOfLineChecker" level="warn"/>
+    <check enabled="true" class="org.scalastyle.scalariform.DeprecatedJavaChecker" level="error" />
+    <check enabled="true" class="org.scalastyle.scalariform.EmptyClassChecker" level="error" />
+    <check enabled="true" class="org.scalastyle.scalariform.EqualsHashCodeChecker" level="error" />
+    <check enabled="true" class="org.scalastyle.scalariform.IfBraceChecker" level="error">
+        <parameters>
+            <parameter name="singleLineAllowed">true</parameter>
+            <parameter name="doubleLineAllowed">true</parameter>
+        </parameters>
+    </check>
+    <check enabled="true" class="org.scalastyle.scalariform.ImportGroupingChecker" level="error" />
+    <check enabled="true" class="org.scalastyle.scalariform.LowercasePatternMatchChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.scalariform.MagicNumberChecker" level="error">
+        <parameters>
+            <parameter name="ignore">-1,0,1,2,3</parameter>
+        </parameters>
+    </check>
+    <check enabled="true" class="org.scalastyle.scalariform.MethodLengthChecker" level="error">
+        <parameters>
+            <parameter name="maxLength">50</parameter>
+        </parameters>
+    </check>
+
+    <check enabled="true" class="org.scalastyle.scalariform.NumberOfMethodsInTypeChecker" level="error">
+        <parameters>
+            <parameter name="maxMethods">30</parameter>
+        </parameters>
+    </check>
+
+    <check enabled="true" class="org.scalastyle.scalariform.NumberOfTypesChecker" level="error">
+        <parameters>
+            <parameter name="maxTypes">20</parameter>
+        </parameters>
+    </check>
+
+    <check enabled="true" class="org.scalastyle.scalariform.ParameterNumberChecker" level="error">
+        <parameters>
+            <parameter name="maxParameters">6</parameter>
+        </parameters>
+    </check>
+
+    <check enabled="true" class="org.scalastyle.scalariform.ProcedureDeclarationChecker" level="error"/>
+    <check enabled="true" class="org.scalastyle.scalariform.UppercaseLChecker" level="error"/>
+
+    <check enabled="true" class="org.scalastyle.scalariform.NotImplementedErrorUsage" level="warning"/>
+    <check enabled="true" class="org.scalastyle.scalariform.RedundantIfChecker" level="warning"/>
+
+    <check enabled="true" class="org.scalastyle.scalariform.MethodNamesChecker" level="warning">
+        <parameters>
+            <parameter name="regex">^[a-z][A-Za-z]*$</parameter>
+            <parameter name="ignoreRegex">^.*$</parameter>
+            <parameter name="ignoreOverride">false</parameter>
+        </parameters>
+    </check>
+
+</scalastyle>
