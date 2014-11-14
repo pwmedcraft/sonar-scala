@@ -1,5 +1,5 @@
 <rules>
-    <!-- All from Scalastyle scalastyle_definition.xml -->
+    <!-- Base on Scalastyle scalastyle_definition.xml and http://www.scalastyle.org/rules-0.6.0.html -->
     <rule key="line.contains.tab">
         <name>File no tab</name>
         <priority>MINOR</priority>
@@ -273,81 +273,90 @@
         <configKey><![CDATA[org.scalastyle.file.NewLineAtEofChecker]]></configKey>
         <description><![CDATA[Checks that a file ends with a newline character]]></description>
     </rule>
-    <!-- to update -->
     <rule key="no.newline.at.eof">
-        <name>NoNewLineAtEofChecker</name>
+        <name>Does not end with a newline character</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.file.NoNewLineAtEofChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.file.NoNewLineAtEofChecker]]></description>
+        <description><![CDATA[Checks that a file does not end with a newline character]]></description>
     </rule>
     <rule key="while">
-        <name>WhileChecker</name>
+        <name>While is not used</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.WhileChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.WhileChecker]]></description>
+        <description><![CDATA[Checks that while is not used]]></description>
     </rule>
     <rule key="var.field">
-        <name>VarFieldChecker</name>
+        <name>Not define mutable fields</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.VarFieldChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.VarFieldChecker]]></description>
+        <description><![CDATA[Checks that classes and objects do not define mutable fields]]></description>
     </rule>
     <rule key="var.local">
-        <name>VarLocalChecker</name>
+        <name>No mutable variables</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.VarLocalChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.VarLocalChecker]]></description>
+        <description><![CDATA[Checks that functions do not define mutable variables]]></description>
     </rule>
     <rule key="if.redundant">
-        <name>RedundantIfChecker</name>
+        <name>RedundantIf</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.RedundantIfChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.RedundantIfChecker]]></description>
+        <description><![CDATA[Checks that if expressions are not redundant, i.e. easily replaced by a variant of the condition]]></description>
     </rule>
     <rule key="token">
-        <name>TokenChecker</name>
+        <name>Token</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.TokenChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.TokenChecker]]></description>
+        <description><![CDATA[Checks that a regular expression cannot be matched in a token, if found reports this]]></description>
+        <param key="regex" type="STRING">
+            <defaultValue>^$</defaultValue>
+        </param>
     </rule>
     <rule key="deprecated.java">
         <name>Deprecated Java</name>
         <priority>MINOR</priority>
         <tag>convention</tag>
         <configKey><![CDATA[org.scalastyle.scalariform.DeprecatedJavaChecker]]></configKey>
-        <description>
-            <![CDATA[Checks that Java @Deprecated is not used, Scala @deprecated should be used instead]]></description>
+        <description><![CDATA[Checks that Java @Deprecated is not used, Scala @deprecated should be used instead]]></description>
     </rule>
     <rule key="empty.class">
         <name>Empty class</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.EmptyClassChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.EmptyClassChecker]]></description>
+        <description><![CDATA[If a class/trait has no members, the braces are unnecessary]]></description>
     </rule>
     <rule key="class.type.parameter.name">
-        <name>ClassTypeParameterChecker</name>
+        <name>ClassTypeParameter</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.ClassTypeParameterChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.ClassTypeParameterChecker]]></description>
+        <description><![CDATA[Checks that type parameter to a class matches a regular expression]]></description>
+        <param key="regex" type="STRING">
+            <defaultValue>^[A-Z_]$</defaultValue>
+        </param>
     </rule>
     <rule key="underscore.import">
-        <name>UnderscoreImportChecker</name>
+        <name>Avoid wildcard imports</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.UnderscoreImportChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.UnderscoreImportChecker]]></description>
+        <description><![CDATA[Avoid wildcard imports]]></description>
     </rule>
     <rule key="lowercase.pattern.match">
         <name>Lowercase pattern match</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.LowercasePatternMatchChecker]]></configKey>
-        <description>
-            <![CDATA[Checks that a case statement pattern match is not lower case, as this can cause confusion]]></description>
+        <description><![CDATA[Checks that a case statement pattern match is not lower case, as this can cause confusion]]></description>
     </rule>
     <rule key="multiple.string.literals">
         <name>MultipleStringLiteralsChecker</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.MultipleStringLiteralsChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.MultipleStringLiteralsChecker]]></description>
+        <description><![CDATA[Checks that a string literal does not appear multiple times]]></description>
+        <param key="allowed" type="INTEGER">
+            <defaultValue>1</defaultValue>
+        </param>
+        <param key="ignoreRegex" type="STRING">
+            <defaultValue>^&quot;&quot;$</defaultValue>
+        </param>
     </rule>
     <rule key="import.grouping">
         <name>Import grouping</name>
@@ -359,13 +368,13 @@
         <name>NotImplementedErrorUsage</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.NotImplementedErrorUsage]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.NotImplementedErrorUsage]]></description>
+        <description><![CDATA[Checks that the code does not have ??? operators.]]></description>
     </rule>
     <rule key="block.import">
-        <name>BlockImportChecker</name>
+        <name>BlockImport</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.BlockImportChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.BlockImportChecker]]></description>
+        <description><![CDATA[Checks that block imports are not used.]]></description>
     </rule>
     <rule key="procedure.declaration">
         <name>Procedure declaration</name>
@@ -374,58 +383,61 @@
         <description><![CDATA[Use a : Unit = for procedure declarations]]></description>
     </rule>
     <rule key="for.brace">
-        <name>ForBraceChecker</name>
+        <name>For brace</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.ForBraceChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.ForBraceChecker]]></description>
+        <description><![CDATA[Checks that braces are used in for comprehensions]]></description>
     </rule>
     <rule key="space.after.comment.start">
-        <name>SpaceAfterCommentStartChecker</name>
+        <name>Space after comment start</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.SpaceAfterCommentStartChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.SpaceAfterCommentStartChecker]]></description>
+        <description><![CDATA[Checks a space after the start of the comment.]]></description>
     </rule>
     <rule key="scaladoc">
-        <name>ScalaDocChecker</name>
+        <name>ScalaDoc</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.ScalaDocChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.ScalaDocChecker]]></description>
+        <description><![CDATA[Checks that the ScalaDoc on documentable members is well-formed]]></description>
     </rule>
     <rule key="disallow.space.after.token">
-        <name>DisallowSpaceAfterTokenChecker</name>
+        <name>DisallowSpaceAfterToken</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.DisallowSpaceAfterTokenChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.DisallowSpaceAfterTokenChecker]]></description>
+        <description><![CDATA[Disallow space after certain token(s)]]></description>
     </rule>
     <rule key="disallow.space.before.token">
-        <name>DisallowSpaceBeforeTokenChecker</name>
+        <name>DisallowSpaceBeforeToken</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.DisallowSpaceBeforeTokenChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.DisallowSpaceBeforeTokenChecker]]></description>
+        <description><![CDATA[Disallow space before certain token(s)]]></description>
     </rule>
     <rule key="ensure.single.space.after.token">
-        <name>EnsureSingleSpaceAfterTokenChecker</name>
+        <name>EnsureSingleSpaceAfterToken</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.EnsureSingleSpaceAfterTokenChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.EnsureSingleSpaceAfterTokenChecker]]></description>
+        <description><![CDATA[Ensure single space after certain token(s)]]></description>
     </rule>
     <rule key="ensure.single.space.before.token">
-        <name>EnsureSingleSpaceBeforeTokenChecker</name>
+        <name>EnsureSingleSpaceBeforeToken</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.EnsureSingleSpaceBeforeTokenChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.EnsureSingleSpaceBeforeTokenChecker]]></description>
+        <description><![CDATA[Ensure single space before certain token(s)]]></description>
     </rule>
     <rule key="non.ascii.character.disallowed">
         <name>NonASCIICharacterChecker</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.scalariform.NonASCIICharacterChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.scalariform.NonASCIICharacterChecker]]></description>
+        <description><![CDATA[Some editors are unfriendly to non ascii characters.]]></description>
     </rule>
     <rule key="indentation">
         <name>IndentationChecker</name>
         <priority>MINOR</priority>
         <configKey><![CDATA[org.scalastyle.file.IndentationChecker]]></configKey>
-        <description><![CDATA[org.scalastyle.file.IndentationChecker]]></description>
+        <description><![CDATA[Checks that lines are indented by a multiple of the tab size]]></description>
+        <param key="tabSize" type="INTEGER">
+            <defaultValue>2</defaultValue>
+        </param>
     </rule>
-
+    <!-- to update -->
 </rules>

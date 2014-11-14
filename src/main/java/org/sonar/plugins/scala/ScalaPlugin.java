@@ -57,6 +57,7 @@ public class ScalaPlugin extends SonarPlugin {
     extensions.add(ScalastyleProfileExporter.class);
     extensions.add(ScalastyleProfileImporter.class);
     extensions.add(ScalastyleDefaultProfile.class);
+    extensions.add(ScalastyleStandardProfile.class);
 
     return extensions;
   }

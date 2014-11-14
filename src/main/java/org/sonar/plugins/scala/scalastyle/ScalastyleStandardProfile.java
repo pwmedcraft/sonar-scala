@@ -19,25 +19,16 @@
  */
 package org.sonar.plugins.scala.scalastyle;
 
-import org.apache.commons.io.IOUtils;
-import org.sonar.api.profiles.ProfileDefinition;
-import org.sonar.api.profiles.RulesProfile;
-import org.sonar.api.utils.ValidationMessages;
-import org.sonar.plugins.scala.language.Scala;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 /**
- * This is the initial default Scala profile.
+ * This is the Standard Scalastyle profile.
  *
  * @author Tomasz Mosiej
  * @since 1.0.1
  */
-public class ScalastyleDefaultProfile extends ScalastyleAbstractProfile {
+public class ScalastyleStandardProfile extends ScalastyleAbstractProfile {
 
-    public ScalastyleDefaultProfile(ScalastyleProfileImporter scalastyleProfileImporter) {
-        super("SonarWay","scalastyle-config-default.xml",true,scalastyleProfileImporter);
+    public ScalastyleStandardProfile(ScalastyleProfileImporter scalastyleProfileImporter) {
+        super("ScalastyleStandard","default_config.xml",false,scalastyleProfileImporter);
     }
 }
 

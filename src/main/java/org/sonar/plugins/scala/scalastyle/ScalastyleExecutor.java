@@ -150,7 +150,10 @@ public class ScalastyleExecutor implements BatchExtension {
                 return null;
             }
 
-            int lineId = Integer.valueOf(error.lineNumber().get().toString());
+            Integer lineId = null;
+            if(error.lineNumber().isDefined()) {
+                lineId = Integer.valueOf(error.lineNumber().get().toString());
+            }
 
             String message = (String) ScalastyleRunner.message(error, messageHelper).productElement(2);
 
@@ -169,7 +172,7 @@ public class ScalastyleExecutor implements BatchExtension {
 
     private Rule findRuleFor(StyleError violation) {
         String ruleKey = violation.key();
-        LOG.info("Looking for key:" + ruleKey);
+        LOG.debug("Looking for key:" + ruleKey);
         Rule rule = ruleFinder.findByKey(ScalastyleConstants.REPOSITORY_KEY, ruleKey);
         if (rule != null) {
             return rule;
