@@ -28,6 +28,8 @@ import org.sonar.api.resources.Resource;
 import org.sonar.api.resources.Scopes;
 import org.sonar.api.utils.WildcardPattern;
 
+import java.io.File;
+
 /**
  * This class implements a Scala source file for Sonar.
  *
@@ -36,6 +38,7 @@ import org.sonar.api.utils.WildcardPattern;
  */
 public class ScalaFile extends Resource<ScalaPackage> {
 
+  public static final String SEPARATOR = File.separator;
   private final boolean isUnitTest;
   private final String filename;
   private final String longName;
@@ -142,14 +145,14 @@ public class ScalaFile extends Resource<ScalaPackage> {
 
   private static String extractLastFolderName(InputFile inputFile) {
     String absolutePath = inputFile.getFile().getAbsolutePath();
-    int lastPathSeparator = absolutePath.lastIndexOf("/");
-    return absolutePath.substring(absolutePath.lastIndexOf("/", lastPathSeparator - 1) + 1, lastPathSeparator);
+    int lastPathSeparator = absolutePath.lastIndexOf(SEPARATOR);
+    return absolutePath.substring(absolutePath.lastIndexOf(SEPARATOR, lastPathSeparator - 1) + 1, lastPathSeparator);
   }
 
   private static String resolveClassName(InputFile inputFile) {
     String classname = inputFile.getRelativePath();
-    if (inputFile.getRelativePath().indexOf('/') >= 0) {
-      classname = StringUtils.substringAfterLast(inputFile.getRelativePath(), "/");
+    if (inputFile.getRelativePath().indexOf(SEPARATOR) >= 0) {
+      classname = StringUtils.substringAfterLast(inputFile.getRelativePath(), SEPARATOR);
     }
     return StringUtils.substringBeforeLast(classname, ".");
   }

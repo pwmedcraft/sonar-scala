@@ -74,7 +74,7 @@ public class ScalaFileTest {
 
   @Test
   public void shouldHandlePackeObjectsInFirstLevelProperly() {
-    InputFile inputFile = InputFileUtils.create(new File("src/test/resources/"), "scalaSourceImporter/package.scala");
+    InputFile inputFile = InputFileUtils.create(new File("src/test/resources/"), "scalaSourceImporter"+ScalaFile.SEPARATOR+"package.scala");
     ScalaFile scalaFile = ScalaFile.fromInputFile(inputFile, false);
 
     assertThat(scalaFile.getName(), is("scalaSourceImporter.package"));
