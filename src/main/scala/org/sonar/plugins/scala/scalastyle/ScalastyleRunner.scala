@@ -19,61 +19,60 @@
  */
 package org.sonar.plugins.scala.scalastyle
 
+import java.io.File
 import java.util.Date
 
-import com.typesafe.config.{Config, ConfigFactory}
-import java.io.File
+import com.typesafe.config.ConfigFactory
 import org.scalastyle._
-
-import scala.collection.JavaConversions.seqAsJavaList
 
 object ScalastyleRunner {
 
-     private[this] def now(): Long = new Date().getTime()
+  private[this] def now(): Long = new Date().getTime()
 
-     def prepareConfig(error : Boolean, config : String, directories : List[String], verbose : Boolean,
-                       quiet : Boolean, warningsaserrors : Boolean, inputEncoding : String ): MainConfig = {
-        MainConfig(error,Some(config),directories,verbose,quiet,warningsaserrors,None,None,Some(inputEncoding))
-     }
+  def prepareConfig(error: Boolean, config: String, directories: List[String], verbose: Boolean,
+                    quiet: Boolean, warningsaserrors: Boolean, inputEncoding: String): MainConfig = {
+    MainConfig(error, Some(config), directories, verbose, quiet, warningsaserrors, None, None, Some(inputEncoding))
+  }
 
-     def execute(mc: MainConfig): List[org.scalastyle.Message[FileSpec]] = {
-      val start = now()
-      val configuration = ScalastyleConfiguration.readFromXml(mc.config.get)
+  def execute(mc: MainConfig, parentConfiguration: ScalastyleConfiguration): List[org.scalastyle.Message[FileSpec]] = {
+    val start = now()
 
-      println("Input dirs:" + mc.directories.mkString(","))
-      val messages = new ScalastyleChecker().checkFiles(configuration, Directory.getFiles(mc.inputEncoding, mc.directories.map(new File(_)).toSeq))
+    val configuration = if (parentConfiguration != null) parentConfiguration else ScalastyleConfiguration.readFromXml(mc.config.get)
 
-      // scalastyle:off regex
-      val config = ConfigFactory.load()
-      val outputResult = new TextOutput(config).output(messages)
-      mc.xmlFile match {
-        case Some(x) => {
-          val encoding = mc.xmlEncoding.getOrElse(mc.inputEncoding.get).toString
-          XmlOutput.save(config, x, encoding, messages)
-        }
-        case None =>
+    println("Input dirs:" + mc.directories.mkString(",") + " with config:" + configuration)
+    val messages = new ScalastyleChecker().checkFiles(configuration, Directory.getFiles(mc.inputEncoding, mc.directories.map(new File(_)).toSeq))
+
+    // scalastyle:off regex
+    val config = ConfigFactory.load()
+    val outputResult = new TextOutput(config).output(messages)
+    mc.xmlFile match {
+      case Some(x) => {
+        val encoding = mc.xmlEncoding.getOrElse(mc.inputEncoding.get).toString
+        XmlOutput.save(config, x, encoding, messages)
       }
-
-      if (!mc.quiet) println("Processed " + outputResult.files + " file(s)")
-      if (!mc.quiet) println("Found " + outputResult.errors + " errors")
-      if (!mc.quiet) println("Found " + outputResult.warnings + " warnings")
-      if (!mc.quiet) println("Finished in " + (now - start) + " ms")
-
-      // scalastyle:on regex
-      messages
+      case None =>
     }
 
-   def messageHelper:MessageHelper = {
-     val config = ConfigFactory.load
-     new MessageHelper(config)
-   }
+    if (!mc.quiet) println("Processed " + outputResult.files + " file(s)")
+    if (!mc.quiet) println("Found " + outputResult.errors + " errors")
+    if (!mc.quiet) println("Found " + outputResult.warnings + " warnings")
+    if (!mc.quiet) println("Finished in " + (now - start) + " ms")
 
-  def message(m: Message[FileSpec], messageHelper : MessageHelper):Tuple3[String,String,String] = m match {
+    // scalastyle:on regex
+    messages
+  }
+
+  def messageHelper: MessageHelper = {
+    val config = ConfigFactory.load
+    new MessageHelper(config)
+  }
+
+  def message(m: Message[FileSpec], messageHelper: MessageHelper): Tuple3[String, String, String] = m match {
     case StyleError(file, clazz, key, level, args, line, column, customMessage) =>
       (messageHelper.text(level.name), file.name, Output.findMessage(messageHelper, key, args, customMessage))
     case StyleException(file, clazz, message, stacktrace, line, column) =>
-      ("",file.name,message)
-    case _ => (null,null,null)
+      ("", file.name, message)
+    case _ => (null, null, null)
   }
 
 }

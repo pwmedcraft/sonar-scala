@@ -23,4 +23,4 @@ Add the following properties to your project's sonar-project.properties file:
     sonar.profile=SonarWay
 
 Experimental integration with Scalastyle 0.6.0 (https://github.com/scalastyle/scalastyle) and update to Scala 2.11
-- In your project root directory you must have subset of Scalastyle rules in scalastyle-config.xml file.
+- In your project root directory you could have subset of Scalastyle rules to check set with parameters -Dsonar.scalastyle.localRuleSubset=scalastyle-config.xml

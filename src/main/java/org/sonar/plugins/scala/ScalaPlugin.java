@@ -24,12 +24,7 @@ import org.sonar.api.SonarPlugin;
 import org.sonar.plugins.scala.cobertura.CoberturaSensor;
 import org.sonar.plugins.scala.colorization.ScalaColorizerFormat;
 import org.sonar.plugins.scala.language.Scala;
-import org.sonar.plugins.scala.scalastyle.ScalastyleDefaultProfile;
-import org.sonar.plugins.scala.scalastyle.ScalastyleExecutor;
-import org.sonar.plugins.scala.scalastyle.ScalastylePluginConfiguration;
-import org.sonar.plugins.scala.scalastyle.ScalastyleProfileImporter;
-import org.sonar.plugins.scala.scalastyle.ScalastyleRuleRepository;
-import org.sonar.plugins.scala.scalastyle.ScalastyleSensor;
+import org.sonar.plugins.scala.scalastyle.*;
 import org.sonar.plugins.scala.sensor.BaseMetricsSensor;
 import org.sonar.plugins.scala.sensor.ScalaSourceImporterSensor;
 import org.sonar.plugins.scala.surefire.SurefireSensor;
@@ -59,6 +54,7 @@ public class ScalaPlugin extends SonarPlugin {
     extensions.add(ScalastylePluginConfiguration.class);
     extensions.add(ScalastyleExecutor.class);
     extensions.add(ScalastyleSensor.class);
+    extensions.add(ScalastyleProfileExporter.class);
     extensions.add(ScalastyleProfileImporter.class);
     extensions.add(ScalastyleDefaultProfile.class);
 

@@ -21,6 +21,7 @@ package org.sonar.plugins.scala.scalastyle;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.EnumHashBiMap;
+import org.scalastyle.Level;
 import org.sonar.api.rules.RulePriority;
 
 import static com.google.common.collect.ImmutableMap.of;
@@ -47,7 +48,7 @@ public final class ScalastyleLevelUtils {
         return LEVELS_PER_PRIORITY.inverse().get(level);
     }
 
-    public static String toLevel(RulePriority priority) {
-        return LEVELS_PER_PRIORITY.get(priority);
+    public static Level toLevel(RulePriority priority) {
+        return Level.apply(LEVELS_PER_PRIORITY.get(priority));
     }
 }

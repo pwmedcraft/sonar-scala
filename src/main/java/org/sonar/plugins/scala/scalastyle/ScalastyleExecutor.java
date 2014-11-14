@@ -24,12 +24,14 @@ import org.scalastyle.MainConfig;
 import org.scalastyle.Message;
 import org.scalastyle.MessageHelper;
 import org.scalastyle.ScalastyleChecker;
+import org.scalastyle.ScalastyleConfiguration;
 import org.scalastyle.StyleError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.BatchExtension;
 import org.sonar.api.batch.ProjectClasspath;
 import org.sonar.api.batch.SensorContext;
+import org.sonar.api.profiles.RulesProfile;
 import org.sonar.api.resources.InputFile;
 import org.sonar.api.resources.InputFileUtils;
 import org.sonar.api.resources.Project;
@@ -43,6 +45,7 @@ import org.sonar.plugins.scala.language.ScalaFile;
 import scala.collection.JavaConversions;
 import scala.collection.immutable.List;
 
+import java.io.File;
 import java.util.Locale;
 
 /**
@@ -57,19 +60,25 @@ public class ScalastyleExecutor implements BatchExtension {
     private final ScalastylePluginConfiguration configuration;
     private final ClassLoader projectClassloader;
     private final Project project;
+    private final RulesProfile rulesProfile;
     private final RuleFinder ruleFinder;
+    private final ScalastyleProfileExporter scalastyleProfileExporter;
 
-    public ScalastyleExecutor(ScalastylePluginConfiguration configuration, ProjectClasspath classpath, Project project, RuleFinder ruleFinder) {
+    public ScalastyleExecutor(ScalastylePluginConfiguration configuration, ProjectClasspath classpath, Project project, RulesProfile rulesProfile, RuleFinder ruleFinder, ScalastyleProfileExporter scalastyleProfileExporter) {
         this.configuration = configuration;
         this.project = project;
+        this.rulesProfile = rulesProfile;
         this.ruleFinder = ruleFinder;
+        this.scalastyleProfileExporter = scalastyleProfileExporter;
         this.projectClassloader = classpath.getClassloader();
     }
 
-    ScalastyleExecutor(ScalastylePluginConfiguration configuration, ClassLoader projectClassloader, Project project, RuleFinder ruleFinder) {
+    ScalastyleExecutor(ScalastylePluginConfiguration configuration, ClassLoader projectClassloader, Project project, RulesProfile rulesProfile, RuleFinder ruleFinder, ScalastyleProfileExporter scalastyleProfileExporter) {
         this.configuration = configuration;
         this.project = project;
+        this.rulesProfile = rulesProfile;
         this.ruleFinder = ruleFinder;
+        this.scalastyleProfileExporter = scalastyleProfileExporter;
         this.projectClassloader = projectClassloader;
     }
 
@@ -85,8 +94,18 @@ public class ScalastyleExecutor implements BatchExtension {
         Locale initialLocale = Locale.getDefault();
         Locale.setDefault(Locale.ENGLISH);
         try {
-            MainConfig config = ScalastyleRunner.prepareConfig(true, "scalastyle-config.xml", JavaConversions.asScalaBuffer(configuration.getSourceDir()).toList(), true, false, false, configuration.getCharset().name());
-            List<Message<FileSpec>> messages = ScalastyleRunner.execute(config);
+            ScalastyleConfiguration remoteConfiguration = null;
+            String localFilename = "scalastyle-config.xml";
+
+            if (configuration.getLocalRuleFile() == null) {
+                remoteConfiguration = createRulesets(ScalastyleConstants.REPOSITORY_KEY);
+            } else {
+                localFilename = configuration.getLocalRuleFile();
+            }
+
+            MainConfig config = ScalastyleRunner.prepareConfig(true, localFilename, JavaConversions.asScalaBuffer(configuration.getSourceDir()).toList(), true, false, false, configuration.getCharset().name());
+
+            List<Message<FileSpec>> messages = ScalastyleRunner.execute(config, remoteConfiguration);
 
             MessageHelper messageHelper = ScalastyleRunner.messageHelper();
 
@@ -105,6 +124,12 @@ public class ScalastyleExecutor implements BatchExtension {
             Thread.currentThread().setContextClassLoader(initialClassLoader);
             Locale.setDefault(initialLocale);
         }
+    }
+
+    private ScalastyleConfiguration createRulesets(String repositoryKey) {
+        String rulesXml = scalastyleProfileExporter.exportProfile(repositoryKey, rulesProfile);
+
+        return ScalastyleConfiguration.readFromString(rulesXml);
     }
 
     public Violation toViolation(Message<FileSpec> msg, SensorContext context, MessageHelper messageHelper) {

@@ -42,7 +42,7 @@ import java.util.List;
 public class ScalastylePluginConfiguration implements BatchExtension {
 
     private static final Logger LOG = LoggerFactory.getLogger(ScalastylePluginConfiguration.class);
-    public static final String PROPERTY_GENERATE_XML = "sonar.scalastyle.generateXml";
+    public static final String PROPERTY_USE_LOCAL_RULE = "sonar.scalastyle.localRuleSubset";
 
     private final RulesProfile profile;
     private final Settings conf;
@@ -72,5 +72,9 @@ public class ScalastylePluginConfiguration implements BatchExtension {
             charset = Charset.forName(System.getProperty("file.encoding", CharEncoding.UTF_8));
         }
         return charset;
+    }
+
+    public String getLocalRuleFile(){
+        return conf.getString(PROPERTY_USE_LOCAL_RULE);
     }
 }
