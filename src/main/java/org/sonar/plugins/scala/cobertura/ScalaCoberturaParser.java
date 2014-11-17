@@ -19,10 +19,9 @@
  */
 package org.sonar.plugins.scala.cobertura;
 
-import org.sonar.plugins.cobertura.api.AbstractCoberturaParser;
 import org.sonar.api.resources.Resource;
+import org.sonar.plugins.cobertura.api.AbstractCoberturaParser;
 import org.sonar.plugins.scala.language.ScalaFile;
-import java.io.File;
 
 public class ScalaCoberturaParser extends AbstractCoberturaParser {
     @Override
