@@ -22,11 +22,12 @@ package org.sonar.plugins.scala.surefire;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
+import org.fest.assertions.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.sonar.api.batch.CoverageExtension;
-import org.sonar.api.batch.fs.FileSystem;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
+import org.sonar.api.batch.fs.internal.DefaultInputFile;
 import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
 
@@ -34,7 +35,7 @@ public class SurefireSensorTest {
 
     private SurefireSensor sensor;
     private Settings settings;
-    private FileSystem fileSystem;
+    private DefaultFileSystem fileSystem;
     private Project project;
     
     @Before
@@ -51,6 +52,25 @@ public class SurefireSensorTest {
         assertEquals(CoverageExtension.class, sensor.dependsUponCoverageSensors());
     }
 
+    
+    @Test
+    public void should_execute_if_filesystem_contains_scala_files() {
+	  DefaultInputFile javaFile = new DefaultInputFile("src/org/foo/scala");
+	  javaFile.setLanguage("scala");
+	  fileSystem.add(javaFile);
+      SurefireSensor surefireSensor = new SurefireSensor(settings,fileSystem);
+      Assertions.assertThat(surefireSensor.shouldExecuteOnProject(project)).isTrue();
+    }
+
+    @Test
+    public void should_not_execute_if_filesystem_does_not_contains_scala_files() {
+	  DefaultInputFile scalaFile = new DefaultInputFile("src/org/foo/java");
+	  scalaFile.setLanguage("java");
+	  fileSystem.add(scalaFile);
+      SurefireSensor surefireSensor = new SurefireSensor(settings,fileSystem);
+      Assertions.assertThat(surefireSensor.shouldExecuteOnProject(project)).isFalse();
+    }
+    
     @Test
     public void testToString() {
         assertEquals("Scala SurefireSensor", sensor.toString());
