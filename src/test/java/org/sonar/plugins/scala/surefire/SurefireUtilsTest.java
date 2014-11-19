@@ -27,6 +27,7 @@ import java.io.File;
 
 import org.apache.maven.project.MavenProject;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.sonar.api.batch.fs.internal.DefaultFileSystem;
 import org.sonar.api.config.Settings;
@@ -51,14 +52,16 @@ public class SurefireUtilsTest {
     assertThat(SurefireUtils.getReportsDirectory(fileSystem, settings, null).isDirectory()).isTrue();
   }
 
-//  @Test
+  @Ignore("caused test failures on release")
+  @Test
   public void shouldGetReportsFromPluginConfiguration() {
     MavenProject pom = MavenTestUtils.loadPom(getClass(), "shouldGetReportsFromPluginConfiguration/pom.xml"); 
     assertThat(SurefireUtils.getReportsDirectory(fileSystem, settings, pom).exists()).isTrue();
     assertThat(SurefireUtils.getReportsDirectory(fileSystem, settings, pom).isDirectory()).isTrue();
   }
 
-//  @Test
+  @Ignore("caused test failures on release")
+  @Test
   public void shouldGetReportsFromDefaultConfiguration() {
 	fileSystem.setBaseDir(new File("src/test/resources/surefire"));
 	File reportsDir = SurefireUtils.getReportsDirectory(fileSystem, settings, null);
