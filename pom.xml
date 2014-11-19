@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
@@ -10,7 +11,7 @@
 
   <artifactId>sonar-scala-plugin</artifactId>
   <packaging>sonar-plugin</packaging>
-  <version>1.1.0</version>
+  <version>1.1.0-SNAPSHOT</version>
 
   <name>Sonar Scala Plugin</name>
   <description>Enables analysis of Scala projects into Sonar.</description>
@@ -29,7 +30,6 @@
     <connection>scm:git:git@github.com:SonarCommunity/sonar-scala.git</connection>
     <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-scala.git</developerConnection>
     <url>https://github.com/SonarCommunity/sonar-scala</url>
-    <tag>sonar-scala-plugin-1.1.0</tag>
   </scm>
 
   <issueManagement>
