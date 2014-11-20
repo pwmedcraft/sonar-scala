@@ -27,9 +27,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:SonarCommunity/sonar-scala.git</connection>
-    <developerConnection>scm:git:git@github.com:SonarCommunity/sonar-scala.git</developerConnection>
-    <url>https://github.com/SonarCommunity/sonar-scala</url>
+    <connection>scm:git:git@github.com:1and1/sonar-scala.git</connection>
+    <developerConnection>scm:git:git@github.com:1and1/sonar-scala.git</developerConnection>
+    <url>https://github.com/1and1/sonar-scala</url>
   </scm>
 
   <issueManagement>
