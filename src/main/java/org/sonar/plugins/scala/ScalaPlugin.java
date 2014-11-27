@@ -46,6 +46,7 @@ public class ScalaPlugin extends SonarPlugin {
 
               Scala.class,
               ScalaColorizerFormat.class,
+              ScalaDefaultProfile.class,
               BaseMetricsSensor.class,
               SurefireSensor.class,
               CoberturaSensor.class
