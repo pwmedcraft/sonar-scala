@@ -1,6 +1,6 @@
 Sonar Scala Plugin
 ===========
-Supports Sonar 3.0+ and requires Cobertura and Surefire plugins.
+Supports Sonar 4.5+ 
 
 To include test and coverage reports:
 
@@ -15,8 +15,7 @@ https://github.com/sqality/scct
 
 Add the following properties to your project's sonar-project.properties file:
 
-    sonar.dynamicAnalysis=reuseReports
-    sonar.surefire.reportsPath=test-reports
+    sonar.junit.reportsPath=test-reports
     sonar.core.codeCoveragePlugin=cobertura
     sonar.java.coveragePlugin=cobertura
     sonar.cobertura.reportPath=target/scala-[scala-version]/coverage-report/cobertura.xml
