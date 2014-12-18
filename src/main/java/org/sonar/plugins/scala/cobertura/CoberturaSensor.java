@@ -27,46 +27,55 @@ import org.sonar.api.batch.CoverageExtension;
 import org.sonar.api.batch.Sensor;
 import org.sonar.api.batch.SensorContext;
 import org.sonar.api.batch.fs.FileSystem;
+import org.sonar.api.config.Settings;
 import org.sonar.api.resources.Project;
-import org.sonar.plugins.cobertura.api.AbstractCoberturaParser;
-import org.sonar.plugins.cobertura.api.CoberturaUtils;
+import org.sonar.api.scan.filesystem.PathResolver;
 import org.sonar.plugins.scala.language.Scala;
 
 public class CoberturaSensor implements Sensor, CoverageExtension {
-    private static final Logger LOG = LoggerFactory.getLogger(CoberturaSensor.class);
-    
-    private final FileSystem fileSystem;
 
-    private static final AbstractCoberturaParser COBERTURA_PARSER = new ScalaCoberturaParser();
+  private static final Logger LOG = LoggerFactory.getLogger(CoberturaSensor.class);
 
-    public CoberturaSensor(FileSystem fileSystem) {
-        this.fileSystem = fileSystem;
-    }
-    
-    public boolean shouldExecuteOnProject(Project project) {
-        if(fileSystem.languages().contains(Scala.KEY)){
-            LOG.info("CoberturaSensor will be executed");                
-            return true;
-        } else {
-            LOG.info("CoberturaSensor will NOT be executed"); 
-            return false;
-        }
-    }
-    
-    public void analyse(Project project, SensorContext context) {
-        File report = CoberturaUtils.getReport(project);
-        if (report != null) {
-            parseReport(report, context);
-        }
-    }
+  public static final String COBERTURA_REPORTS_PATH_PROPERTY ="sonar.cobertura.reportPath";
+  private FileSystem fileSystem;;
+  private PathResolver pathResolver;
+  private Settings settings;
 
-    protected void parseReport(File xmlFile, final SensorContext context) {
-        LOG.info("parsing {}", xmlFile);
-        COBERTURA_PARSER.parseReport(xmlFile, context);
-    }
 
-    @Override
-    public String toString() {
-        return "Scala CoberturaSensor";
+  public CoberturaSensor(FileSystem fileSystem, PathResolver pathResolver, Settings settings) {
+    this.pathResolver = pathResolver;
+    this.settings = settings;
+    this.fileSystem = fileSystem;
+  }
+
+  public boolean shouldExecuteOnProject(Project project) {
+	  if(fileSystem.languages().contains(Scala.KEY)){
+        LOG.info("CoberturaSensor will be executed");                
+        return true;
+    } else {
+        LOG.info("CoberturaSensor will NOT be executed"); 
+        return false;
     }
+  }
+
+  public void analyse(Project project, SensorContext context) {
+	String path = settings.getString(COBERTURA_REPORTS_PATH_PROPERTY);  
+	File report = pathResolver.relativeFile(fileSystem.baseDir(), path);
+    if (!report.isFile()) {
+      LOG.warn("Cobertura report not found at {}", report);
+      return;
+    }
+    parseReport(report, context);
+  }
+
+  protected void parseReport(File xmlFile, SensorContext context) {
+    LOG.info("parsing {}", xmlFile);
+    ScalaCoberturaReportParser.parseReport(xmlFile, context, fileSystem);
+  }
+
+  @Override
+  public String toString() {
+	  return "Scala CoberturaSensor";
+  }
+
 }
