@@ -87,6 +87,7 @@ public class ScalaCoberturaReportParser {
         String className = sanitizeFilename(entry.getKey());
         String filename = className.replace('.', '/') + ".scala";
         FilePredicates filePredicates = fileSystem.predicates();
+     
   	  	InputFile resource = fileSystem.inputFile(filePredicates.matchesPathPattern("**/*" + filename));
         if (resource != null){ 
   	  	for (Measure measure : entry.getValue().createMeasures()) {
@@ -98,10 +99,6 @@ public class ScalaCoberturaReportParser {
       }
     }
   }
-
-//  private boolean resourceExists(Resource file) {
-//    return context.getResource(file) != null;
-//  }
 
   private void collectFileMeasures(SMInputCursor clazz, Map<String, CoverageMeasuresBuilder> builderByFilename) throws XMLStreamException {
     while (clazz.getNext() != null) {
