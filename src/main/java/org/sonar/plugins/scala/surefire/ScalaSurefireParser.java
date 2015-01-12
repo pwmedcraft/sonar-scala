@@ -73,6 +73,10 @@ public class ScalaSurefireParser {
 	      // maybe there's only a test suite result file
 	      unitTestResultFiles = findXMLFilesStartingWith(dir, "TESTS-");
 	    }
+	    if (unitTestResultFiles.length == 0) {
+		  // maybe there's only a test suite result file
+		  unitTestResultFiles = findXMLFilesStartingWith(dir, "");
+		}
 	    return unitTestResultFiles;
 	  }
 
@@ -84,7 +88,7 @@ public class ScalaSurefireParser {
       }
     });
   }
-
+  
   private void parseFiles(SensorContext context, File[] reports) {
     UnitTestIndex index = new UnitTestIndex();
     parseFiles(reports, index);
