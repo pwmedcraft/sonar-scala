@@ -12,14 +12,14 @@
     <package name="org.apache.commons.chain" line-rate="0.9024390243902439" branch-rate="0.6818181818181818"
              complexity="1.6875">
       <classes>
-        <class name="org.apache.commons.chain.Catalog" filename="org/apache/commons/chain/Catalog.java" line-rate="1.0"
+        <class name="org.apache.commons.chain.Catalog" filename="org/apache/commons/chain/Catalog.scala" line-rate="1.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
           </methods>
           <lines>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.CatalogFactory" filename="org/apache/commons/chain/CatalogFactory.java"
+        <class name="org.apache.commons.chain.CatalogFactory" filename="org/apache/commons/chain/CatalogFactory.scala"
                line-rate="0.9024390243902439" branch-rate="0.6818181818181818" complexity="2.2222222222222223">
           <methods>
             <method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -226,28 +226,28 @@
             <line number="233" hits="234" branch="false"/>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.Chain" filename="org/apache/commons/chain/Chain.java" line-rate="1.0"
+        <class name="org.apache.commons.chain.Chain" filename="org/apache/commons/chain/Chain.scala" line-rate="1.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
           </methods>
           <lines>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.Command" filename="org/apache/commons/chain/Command.java" line-rate="1.0"
+        <class name="org.apache.commons.chain.Command" filename="org/apache/commons/chain/Command.scala" line-rate="1.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
           </methods>
           <lines>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.Context" filename="org/apache/commons/chain/Context.java" line-rate="1.0"
+        <class name="org.apache.commons.chain.Context" filename="org/apache/commons/chain/Context.scala" line-rate="1.0"
                branch-rate="1.0" complexity="0.0">
           <methods>
           </methods>
           <lines>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.Filter" filename="org/apache/commons/chain/Filter.java" line-rate="1.0"
+        <class name="org.apache.commons.chain.Filter" filename="org/apache/commons/chain/Filter.scala" line-rate="1.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
           </methods>
@@ -260,7 +260,7 @@
              complexity="1.4333333333333333">
       <classes>
         <class name="org.apache.commons.chain.config.ConfigCatalogRule"
-               filename="org/apache/commons/chain/config/ConfigCatalogRule.java" line-rate="1.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/config/ConfigCatalogRule.scala" line-rate="1.0" branch-rate="1.0"
                complexity="2.5">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0"
@@ -342,7 +342,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.config.ConfigDefineRule"
-               filename="org/apache/commons/chain/config/ConfigDefineRule.java" line-rate="1.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/config/ConfigDefineRule.scala" line-rate="1.0" branch-rate="1.0"
                complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljava/lang/String;Ljava/lang/String;)V" line-rate="1.0"
@@ -384,7 +384,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.config.ConfigParser"
-               filename="org/apache/commons/chain/config/ConfigParser.java" line-rate="0.8333333333333334"
+               filename="org/apache/commons/chain/config/ConfigParser.scala" line-rate="0.8333333333333334"
                branch-rate="0.6666666666666666" complexity="1.2857142857142858">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -512,7 +512,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.config.ConfigRegisterRule"
-               filename="org/apache/commons/chain/config/ConfigRegisterRule.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/config/ConfigRegisterRule.scala" line-rate="0.8888888888888888"
                branch-rate="0.5833333333333334" complexity="5.0">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljava/lang/String;)V" line-rate="1.0" branch-rate="1.0">
@@ -607,7 +607,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.config.ConfigRuleSet"
-               filename="org/apache/commons/chain/config/ConfigRuleSet.java" line-rate="0.6046511627906976"
+               filename="org/apache/commons/chain/config/ConfigRuleSet.scala" line-rate="0.6046511627906976"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -779,7 +779,7 @@
              complexity="1.98">
       <classes>
         <class name="org.apache.commons.chain.generic.CopyCommand"
-               filename="org/apache/commons/chain/generic/CopyCommand.java" line-rate="0.0" branch-rate="0.0"
+               filename="org/apache/commons/chain/generic/CopyCommand.scala" line-rate="0.0" branch-rate="0.0"
                complexity="1.2857142857142858">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -875,7 +875,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.generic.DispatchCommand"
-               filename="org/apache/commons/chain/generic/DispatchCommand.java" line-rate="0.8157894736842105"
+               filename="org/apache/commons/chain/generic/DispatchCommand.scala" line-rate="0.8157894736842105"
                branch-rate="0.625" complexity="2.4444444444444446">
           <methods>
             <method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -1062,7 +1062,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.generic.DispatchLookupCommand"
-               filename="org/apache/commons/chain/generic/DispatchLookupCommand.java" line-rate="0.8717948717948718"
+               filename="org/apache/commons/chain/generic/DispatchLookupCommand.scala" line-rate="0.8717948717948718"
                branch-rate="0.625" complexity="2.0">
           <methods>
             <method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -1253,7 +1253,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.generic.LookupCommand"
-               filename="org/apache/commons/chain/generic/LookupCommand.java" line-rate="0.6578947368421053"
+               filename="org/apache/commons/chain/generic/LookupCommand.scala" line-rate="0.6578947368421053"
                branch-rate="0.4642857142857143" complexity="2.142857142857143">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -1611,7 +1611,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.generic.RemoveCommand"
-               filename="org/apache/commons/chain/generic/RemoveCommand.java" line-rate="0.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/generic/RemoveCommand.scala" line-rate="0.0" branch-rate="1.0"
                complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -1654,7 +1654,7 @@
              complexity="2.59375">
       <classes>
         <class name="org.apache.commons.chain.impl.CatalogBase"
-               filename="org/apache/commons/chain/impl/CatalogBase.java" line-rate="0.35294117647058826"
+               filename="org/apache/commons/chain/impl/CatalogBase.scala" line-rate="0.35294117647058826"
                branch-rate="0.0" complexity="1.3333333333333333">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -1738,7 +1738,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.CatalogFactoryBase"
-               filename="org/apache/commons/chain/impl/CatalogFactoryBase.java" line-rate="0.875" branch-rate="1.0"
+               filename="org/apache/commons/chain/impl/CatalogFactoryBase.scala" line-rate="0.875" branch-rate="1.0"
                complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -1805,7 +1805,7 @@
             <line number="131" hits="0" branch="false"/>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.impl.ChainBase" filename="org/apache/commons/chain/impl/ChainBase.java"
+        <class name="org.apache.commons.chain.impl.ChainBase" filename="org/apache/commons/chain/impl/ChainBase.scala"
                line-rate="0.576271186440678" branch-rate="0.5" complexity="4.285714285714286">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -2079,7 +2079,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.7927927927927928"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.7927927927927928"
                branch-rate="0.7878787878787878" complexity="2.7111111111111112">
           <methods>
             <method name="&lt;clinit&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -2674,7 +2674,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase$1"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.5" branch-rate="1.0"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.5" branch-rate="1.0"
                complexity="2.7111111111111112">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -2694,7 +2694,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase$EntrySetImpl"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.125" branch-rate="0.0"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.125" branch-rate="0.0"
                complexity="2.7111111111111112">
           <methods>
             <method name="&lt;init&gt;" signature="(Lorg/apache/commons/chain/impl/ContextBase;)V" line-rate="1.0"
@@ -2793,7 +2793,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase$EntrySetIterator"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.75" branch-rate="1.0"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.75" branch-rate="1.0"
                complexity="2.7111111111111112">
           <methods>
             <method name="&lt;init&gt;" signature="(Lorg/apache/commons/chain/impl/ContextBase;)V" line-rate="1.0"
@@ -2840,7 +2840,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase$MapEntryImpl"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.2916666666666667"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.2916666666666667"
                branch-rate="0.16666666666666666" complexity="2.7111111111111112">
           <methods>
             <method name="&lt;init&gt;"
@@ -2993,7 +2993,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase$ValuesImpl"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.0" branch-rate="0.0"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.0" branch-rate="0.0"
                complexity="2.7111111111111112">
           <methods>
             <method name="&lt;init&gt;" signature="(Lorg/apache/commons/chain/impl/ContextBase;)V" line-rate="1.0"
@@ -3078,7 +3078,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.impl.ContextBase$ValuesIterator"
-               filename="org/apache/commons/chain/impl/ContextBase.java" line-rate="0.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/impl/ContextBase.scala" line-rate="0.0" branch-rate="1.0"
                complexity="2.7111111111111112">
           <methods>
             <method name="&lt;init&gt;" signature="(Lorg/apache/commons/chain/impl/ContextBase;)V" line-rate="0.0"
@@ -3130,7 +3130,7 @@
              complexity="3.5277777777777777">
       <classes>
         <class name="org.apache.commons.chain.web.AbstractGetLocaleCommand"
-               filename="org/apache/commons/chain/web/AbstractGetLocaleCommand.java" line-rate="1.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/web/AbstractGetLocaleCommand.scala" line-rate="1.0" branch-rate="1.0"
                complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -3168,7 +3168,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.AbstractSetLocaleCommand"
-               filename="org/apache/commons/chain/web/AbstractSetLocaleCommand.java" line-rate="0.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/web/AbstractSetLocaleCommand.scala" line-rate="0.0" branch-rate="1.0"
                complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -3206,7 +3206,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.ChainListener"
-               filename="org/apache/commons/chain/web/ChainListener.java" line-rate="0.0" branch-rate="0.0"
+               filename="org/apache/commons/chain/web/ChainListener.scala" line-rate="0.0" branch-rate="0.0"
                complexity="7.4">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -3657,7 +3657,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.ChainResources"
-               filename="org/apache/commons/chain/web/ChainResources.java" line-rate="0.1744186046511628"
+               filename="org/apache/commons/chain/web/ChainResources.scala" line-rate="0.1744186046511628"
                branch-rate="0.17857142857142858" complexity="8.6">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -4098,7 +4098,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.ChainServlet"
-               filename="org/apache/commons/chain/web/ChainServlet.java" line-rate="0.4634146341463415"
+               filename="org/apache/commons/chain/web/ChainServlet.scala" line-rate="0.4634146341463415"
                branch-rate="0.3333333333333333" complexity="4.333333333333333">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -4281,7 +4281,7 @@
             <line number="241" hits="0" branch="false"/>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.web.MapEntry" filename="org/apache/commons/chain/web/MapEntry.java"
+        <class name="org.apache.commons.chain.web.MapEntry" filename="org/apache/commons/chain/web/MapEntry.scala"
                line-rate="0.9444444444444444" branch-rate="0.36363636363636365" complexity="2.8333333333333335">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljava/lang/Object;Ljava/lang/Object;Z)V" line-rate="1.0"
@@ -4396,7 +4396,7 @@
             </line>
           </lines>
         </class>
-        <class name="org.apache.commons.chain.web.WebContext" filename="org/apache/commons/chain/web/WebContext.java"
+        <class name="org.apache.commons.chain.web.WebContext" filename="org/apache/commons/chain/web/WebContext.scala"
                line-rate="1.0" branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -4414,7 +4414,7 @@
     <package name="org.apache.commons.chain.web.faces" line-rate="0.0" branch-rate="1.0" complexity="1.0">
       <classes>
         <class name="org.apache.commons.chain.web.faces.FacesGetLocaleCommand"
-               filename="org/apache/commons/chain/web/faces/FacesGetLocaleCommand.java" line-rate="0.0"
+               filename="org/apache/commons/chain/web/faces/FacesGetLocaleCommand.scala" line-rate="0.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -4437,7 +4437,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.faces.FacesSetLocaleCommand"
-               filename="org/apache/commons/chain/web/faces/FacesSetLocaleCommand.java" line-rate="0.0"
+               filename="org/apache/commons/chain/web/faces/FacesSetLocaleCommand.scala" line-rate="0.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -4462,7 +4462,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.faces.FacesWebContext"
-               filename="org/apache/commons/chain/web/faces/FacesWebContext.java" line-rate="0.0" branch-rate="1.0"
+               filename="org/apache/commons/chain/web/faces/FacesWebContext.scala" line-rate="0.0" branch-rate="1.0"
                complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -4574,7 +4574,7 @@
              complexity="2.1826086956521737">
       <classes>
         <class name="org.apache.commons.chain.web.portlet.PortletApplicationScopeMap"
-               filename="org/apache/commons/chain/web/portlet/PortletApplicationScopeMap.java"
+               filename="org/apache/commons/chain/web/portlet/PortletApplicationScopeMap.scala"
                line-rate="0.7846153846153846" branch-rate="0.5714285714285714" complexity="2.0625">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/portlet/PortletContext;)V" line-rate="1.0" branch-rate="1.0">
@@ -4889,7 +4889,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletGetLocaleCommand"
-               filename="org/apache/commons/chain/web/portlet/PortletGetLocaleCommand.java" line-rate="1.0"
+               filename="org/apache/commons/chain/web/portlet/PortletGetLocaleCommand.scala" line-rate="1.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -4912,7 +4912,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletInitParamMap"
-               filename="org/apache/commons/chain/web/portlet/PortletInitParamMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/portlet/PortletInitParamMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/portlet/PortletContext;)V" line-rate="1.0" branch-rate="1.0">
@@ -5155,7 +5155,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletParamMap"
-               filename="org/apache/commons/chain/web/portlet/PortletParamMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/portlet/PortletParamMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/portlet/PortletRequest;)V" line-rate="1.0" branch-rate="1.0">
@@ -5398,7 +5398,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletParamValuesMap"
-               filename="org/apache/commons/chain/web/portlet/PortletParamValuesMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/portlet/PortletParamValuesMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/portlet/PortletRequest;)V" line-rate="1.0" branch-rate="1.0">
@@ -5641,7 +5641,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletRequestScopeMap"
-               filename="org/apache/commons/chain/web/portlet/PortletRequestScopeMap.java"
+               filename="org/apache/commons/chain/web/portlet/PortletRequestScopeMap.scala"
                line-rate="0.7846153846153846" branch-rate="0.5714285714285714" complexity="2.0625">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/portlet/PortletRequest;)V" line-rate="1.0" branch-rate="1.0">
@@ -5956,7 +5956,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletSessionScopeMap"
-               filename="org/apache/commons/chain/web/portlet/PortletSessionScopeMap.java"
+               filename="org/apache/commons/chain/web/portlet/PortletSessionScopeMap.scala"
                line-rate="0.8723404255319149" branch-rate="0.75" complexity="3.411764705882353">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/portlet/PortletRequest;)V" line-rate="1.0" branch-rate="1.0">
@@ -6451,7 +6451,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletSetLocaleCommand"
-               filename="org/apache/commons/chain/web/portlet/PortletSetLocaleCommand.java" line-rate="0.0"
+               filename="org/apache/commons/chain/web/portlet/PortletSetLocaleCommand.scala" line-rate="0.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -6472,7 +6472,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.portlet.PortletWebContext"
-               filename="org/apache/commons/chain/web/portlet/PortletWebContext.java" line-rate="0.9666666666666667"
+               filename="org/apache/commons/chain/web/portlet/PortletWebContext.scala" line-rate="0.9666666666666667"
                branch-rate="1.0" complexity="2.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -6753,7 +6753,7 @@
              complexity="2.161111111111111">
       <classes>
         <class name="org.apache.commons.chain.web.servlet.ChainProcessor"
-               filename="org/apache/commons/chain/web/servlet/ChainProcessor.java" line-rate="0.3548387096774194"
+               filename="org/apache/commons/chain/web/servlet/ChainProcessor.scala" line-rate="0.3548387096774194"
                branch-rate="0.125" complexity="3.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -6873,7 +6873,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.PathInfoMapper"
-               filename="org/apache/commons/chain/web/servlet/PathInfoMapper.java" line-rate="0.0" branch-rate="0.0"
+               filename="org/apache/commons/chain/web/servlet/PathInfoMapper.scala" line-rate="0.0" branch-rate="0.0"
                complexity="1.5">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -6949,7 +6949,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.RequestParameterMapper"
-               filename="org/apache/commons/chain/web/servlet/RequestParameterMapper.java" line-rate="0.0"
+               filename="org/apache/commons/chain/web/servlet/RequestParameterMapper.scala" line-rate="0.0"
                branch-rate="0.0" complexity="1.1666666666666667">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -7029,7 +7029,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletApplicationScopeMap"
-               filename="org/apache/commons/chain/web/servlet/ServletApplicationScopeMap.java"
+               filename="org/apache/commons/chain/web/servlet/ServletApplicationScopeMap.scala"
                line-rate="0.7846153846153846" branch-rate="0.5714285714285714" complexity="2.0625">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/ServletContext;)V" line-rate="1.0" branch-rate="1.0">
@@ -7344,7 +7344,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletCookieMap"
-               filename="org/apache/commons/chain/web/servlet/ServletCookieMap.java" line-rate="0.8775510204081632"
+               filename="org/apache/commons/chain/web/servlet/ServletCookieMap.scala" line-rate="0.8775510204081632"
                branch-rate="0.6176470588235294" complexity="2.4375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -7654,7 +7654,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletGetLocaleCommand"
-               filename="org/apache/commons/chain/web/servlet/ServletGetLocaleCommand.java" line-rate="1.0"
+               filename="org/apache/commons/chain/web/servlet/ServletGetLocaleCommand.scala" line-rate="1.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="1.0" branch-rate="1.0">
@@ -7677,7 +7677,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletHeaderMap"
-               filename="org/apache/commons/chain/web/servlet/ServletHeaderMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/servlet/ServletHeaderMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -7921,7 +7921,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletHeaderValuesMap"
-               filename="org/apache/commons/chain/web/servlet/ServletHeaderValuesMap.java"
+               filename="org/apache/commons/chain/web/servlet/ServletHeaderValuesMap.scala"
                line-rate="0.8787878787878788" branch-rate="0.71875" complexity="2.375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -8256,7 +8256,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletInitParamMap"
-               filename="org/apache/commons/chain/web/servlet/ServletInitParamMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/servlet/ServletInitParamMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/ServletContext;)V" line-rate="1.0" branch-rate="1.0">
@@ -8499,7 +8499,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletParamMap"
-               filename="org/apache/commons/chain/web/servlet/ServletParamMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/servlet/ServletParamMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -8743,7 +8743,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletParamValuesMap"
-               filename="org/apache/commons/chain/web/servlet/ServletParamValuesMap.java" line-rate="0.8888888888888888"
+               filename="org/apache/commons/chain/web/servlet/ServletParamValuesMap.scala" line-rate="0.8888888888888888"
                branch-rate="0.7" complexity="1.9375">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -8987,7 +8987,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletPathMapper"
-               filename="org/apache/commons/chain/web/servlet/ServletPathMapper.java" line-rate="0.0" branch-rate="0.0"
+               filename="org/apache/commons/chain/web/servlet/ServletPathMapper.scala" line-rate="0.0" branch-rate="0.0"
                complexity="1.5">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -9063,7 +9063,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletRequestScopeMap"
-               filename="org/apache/commons/chain/web/servlet/ServletRequestScopeMap.java"
+               filename="org/apache/commons/chain/web/servlet/ServletRequestScopeMap.scala"
                line-rate="0.7846153846153846" branch-rate="0.5714285714285714" complexity="2.0625">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -9379,7 +9379,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletSessionScopeMap"
-               filename="org/apache/commons/chain/web/servlet/ServletSessionScopeMap.java"
+               filename="org/apache/commons/chain/web/servlet/ServletSessionScopeMap.scala"
                line-rate="0.8617021276595744" branch-rate="0.75" complexity="3.411764705882353">
           <methods>
             <method name="&lt;init&gt;" signature="(Ljavax/servlet/http/HttpServletRequest;)V" line-rate="1.0"
@@ -9875,7 +9875,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletSetLocaleCommand"
-               filename="org/apache/commons/chain/web/servlet/ServletSetLocaleCommand.java" line-rate="0.0"
+               filename="org/apache/commons/chain/web/servlet/ServletSetLocaleCommand.scala" line-rate="0.0"
                branch-rate="1.0" complexity="1.0">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">
@@ -9900,7 +9900,7 @@
           </lines>
         </class>
         <class name="org.apache.commons.chain.web.servlet.ServletWebContext"
-               filename="org/apache/commons/chain/web/servlet/ServletWebContext.java" line-rate="0.96875"
+               filename="org/apache/commons/chain/web/servlet/ServletWebContext.scala" line-rate="0.96875"
                branch-rate="1.0" complexity="2.125">
           <methods>
             <method name="&lt;init&gt;" signature="()V" line-rate="0.0" branch-rate="1.0">

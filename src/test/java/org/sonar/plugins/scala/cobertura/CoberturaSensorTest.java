@@ -17,6 +17,9 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+/*
+ * SonarQube Cobertura Plugin
+ */
 package org.sonar.plugins.scala.cobertura;
 
 import static org.mockito.Matchers.any;
@@ -157,27 +160,20 @@ public class CoberturaSensorTest {
   }
 
   @Test
-  public void javaInterfaceHasNoCoverage() throws URISyntaxException {
+  public void collectFileLineHitsData() throws URISyntaxException {
+	DefaultInputFile file = new DefaultInputFile("org/apache/commons/chain/impl/CatalogBase.scala");
+	fs.add(file);
+	sensor = new CoberturaSensor(fs, pathResolver, settings);
     sensor.parseReport(getCoverageReport(), context);
-
-    final Resource interfaze = new org.sonar.api.resources.File("org/apache/commons/chain/Chain");
-
-
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.COVERAGE)));
-
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.LINE_COVERAGE)));
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.LINES_TO_COVER)));
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.UNCOVERED_LINES)));
-
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.BRANCH_COVERAGE)));
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.CONDITIONS_TO_COVER)));
-    verify(context, never()).saveMeasure(eq(interfaze), argThat(new IsMeasure(CoreMetrics.UNCOVERED_CONDITIONS)));
+    verify(context).saveMeasure(
+        eq(file),
+        argThat(new IsMeasure(CoreMetrics.COVERAGE_LINE_HITS_DATA,
+            "48=117;56=234;66=0;67=0;68=0;84=999;86=999;98=318;111=18;121=0;122=0;125=0;126=0;127=0;128=0;131=0;133=0")));
   }
 
   private File getCoverageReport() throws URISyntaxException {
-    return new File(getClass().getResource("/org/sonar/plugins/scala/cobertura/CoberturaSensorTest/commons-chain-coverage.xml").toURI());
-  }
-
+	    return new File(getClass().getResource("/org/sonar/plugins/scala/cobertura/CoberturaSensorTest/commons-chain-coverage.xml").toURI());
+	  }
   
   @Test
   public void should_execute_if_filesystem_contains_scala_files() {
