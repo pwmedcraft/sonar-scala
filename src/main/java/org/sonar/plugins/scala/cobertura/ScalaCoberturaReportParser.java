@@ -17,6 +17,9 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02
  */
+/*
+ * SonarQube Cobertura Plugin
+ */
 package org.sonar.plugins.scala.cobertura;
 
 import static java.util.Locale.ENGLISH;
@@ -28,7 +31,6 @@ import java.util.Map;
 
 import javax.xml.stream.XMLStreamException;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.staxmate.in.SMHierarchicCursor;
 import org.codehaus.staxmate.in.SMInputCursor;
@@ -47,7 +49,7 @@ import com.google.common.collect.Maps;
 
 public class ScalaCoberturaReportParser {
 
-	 private static final Logger LOG = LoggerFactory.getLogger(ScalaCoberturaReportParser.class);
+  private static final Logger LOG = LoggerFactory.getLogger(ScalaCoberturaReportParser.class);
   private final SensorContext context;
   private FileSystem fileSystem;
 
@@ -58,7 +60,7 @@ public class ScalaCoberturaReportParser {
 
   /**
    * Parse a Cobertura xml report and create measures accordingly
- * @param fileSystem 
+   * @param fileSystem 
    */
   public static void parseReport(File xmlFile, SensorContext context, FileSystem fileSystem) {
     new ScalaCoberturaReportParser(context, fileSystem).parse(xmlFile);
@@ -84,11 +86,8 @@ public class ScalaCoberturaReportParser {
       Map<String, CoverageMeasuresBuilder> builderByFilename = Maps.newHashMap();
       collectFileMeasures(pack.descendantElementCursor("class"), builderByFilename);
       for (Map.Entry<String, CoverageMeasuresBuilder> entry : builderByFilename.entrySet()) {
-        String className = sanitizeFilename(entry.getKey());
-        String filename = className.replace('.', '/') + ".scala";
         FilePredicates filePredicates = fileSystem.predicates();
-     
-  	  	InputFile resource = fileSystem.inputFile(filePredicates.matchesPathPattern("**/*" + filename));
+  	  	InputFile resource = fileSystem.inputFile(filePredicates.matchesPathPattern("**/*" + entry.getKey()));
         if (resource != null){ 
   	  	for (Measure measure : entry.getValue().createMeasures()) {
             context.saveMeasure(resource, measure);
@@ -129,12 +128,6 @@ public class ScalaCoberturaReportParser {
         builder.setConditions(lineId, Integer.parseInt(conditions[1]), Integer.parseInt(conditions[0]));
       }
     }
-  }
-
-  private static String sanitizeFilename(String s) {
-    String fileName = FilenameUtils.removeExtension(s);
-    fileName = fileName.replace('/', '.').replace('\\', '.');
-    return fileName;
   }
 
 }
