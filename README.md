@@ -16,6 +16,4 @@ https://github.com/sqality/scct
 Add the following properties to your project's sonar-project.properties file:
 
     sonar.junit.reportsPath=test-reports
-    sonar.core.codeCoveragePlugin=cobertura
-    sonar.java.coveragePlugin=cobertura
     sonar.cobertura.reportPath=target/scala-[scala-version]/coverage-report/cobertura.xml
