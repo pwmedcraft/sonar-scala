@@ -59,7 +59,11 @@ public class CoberturaSensor implements Sensor, CoverageExtension {
   }
 
   public void analyse(Project project, SensorContext context) {
-	String path = settings.getString(COBERTURA_REPORTS_PATH_PROPERTY);  
+	String path = settings.getString(COBERTURA_REPORTS_PATH_PROPERTY);
+	if (path == null){
+		LOG.warn("Cobertura report path property \"sonar.cobertura.reportPath\" not found!");
+		return;
+	}
 	File report = pathResolver.relativeFile(fileSystem.baseDir(), path);
     if (!report.isFile()) {
       LOG.warn("Cobertura report not found at {}", report);
