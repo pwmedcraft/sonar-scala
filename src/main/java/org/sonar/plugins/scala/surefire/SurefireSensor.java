@@ -58,10 +58,10 @@ public class SurefireSensor implements Sensor {
   
   public boolean shouldExecuteOnProject(Project project) {  
       if( fileSystem.hasFiles(fileSystem.predicates().hasLanguage(Scala.KEY))){
-          LOG.info("SurefireSensor will be executed");                
+          LOG.info("SonarScala - SurefireSensor will be executed");                
           return true;
       } else {
-          LOG.info("SurefireSensor will NOT be executed"); 
+          LOG.info("SonarScala - SurefireSensor will NOT be executed"); 
           return false;
       }
   }

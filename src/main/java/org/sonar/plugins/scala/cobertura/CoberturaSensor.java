@@ -50,10 +50,10 @@ public class CoberturaSensor implements Sensor, CoverageExtension {
 
   public boolean shouldExecuteOnProject(Project project) {
 	  if(fileSystem.languages().contains(Scala.KEY)){
-        LOG.info("CoberturaSensor will be executed");                
+        LOG.info("SonarScala - CoberturaSensor will be executed");                
         return true;
     } else {
-        LOG.info("CoberturaSensor will NOT be executed"); 
+        LOG.info("SonarScala - CoberturaSensor will NOT be executed"); 
         return false;
     }
   }
