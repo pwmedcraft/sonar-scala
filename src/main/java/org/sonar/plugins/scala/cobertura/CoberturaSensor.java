@@ -19,8 +19,6 @@
  */
 package org.sonar.plugins.scala.cobertura;
 
-import java.io.File;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sonar.api.batch.CoverageExtension;
@@ -32,10 +30,13 @@ import org.sonar.api.resources.Project;
 import org.sonar.api.scan.filesystem.PathResolver;
 import org.sonar.plugins.scala.language.Scala;
 
+import java.io.File;
+
 public class CoberturaSensor implements Sensor, CoverageExtension {
 
   private static final Logger LOG = LoggerFactory.getLogger(CoberturaSensor.class);
 
+  public static final String SCALA_COBERTURA_REPORTS_PATH_PROPERTY ="sonar.scala.cobertura.reportPath";
   public static final String COBERTURA_REPORTS_PATH_PROPERTY ="sonar.cobertura.reportPath";
   private FileSystem fileSystem;;
   private PathResolver pathResolver;
@@ -58,19 +59,23 @@ public class CoberturaSensor implements Sensor, CoverageExtension {
     }
   }
 
-  public void analyse(Project project, SensorContext context) {
-	String path = settings.getString(COBERTURA_REPORTS_PATH_PROPERTY);
-	if (path == null){
-		LOG.warn("Cobertura report path property \"sonar.cobertura.reportPath\" not found!");
-		return;
-	}
-	File report = pathResolver.relativeFile(fileSystem.baseDir(), path);
-    if (!report.isFile()) {
-      LOG.warn("Cobertura report not found at {}", report);
-      return;
+    public void analyse(Project project, SensorContext context) {
+        String path = settings.getString(SCALA_COBERTURA_REPORTS_PATH_PROPERTY);
+        if (path == null) {
+            LOG.warn("Cobertura report path property \"sonar.scala.cobertura.reportPath\" not found!");
+            path = settings.getString(COBERTURA_REPORTS_PATH_PROPERTY);
+        }
+        if (path == null) {
+            LOG.warn("Cobertura report path property \"sonar.cobertura.reportPath\" not found!");
+            return;
+        }
+        File report = pathResolver.relativeFile(fileSystem.baseDir(), path);
+        if (!report.isFile()) {
+            LOG.warn("Cobertura report not found at {}", report);
+            return;
+        }
+        parseReport(report, context);
     }
-    parseReport(report, context);
-  }
 
   protected void parseReport(File xmlFile, SensorContext context) {
     LOG.info("parsing {}", xmlFile);
