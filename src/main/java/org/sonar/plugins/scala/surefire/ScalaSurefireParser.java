@@ -136,7 +136,7 @@ public class ScalaSurefireParser {
         double passedTests = testsCount - report.getErrors() - report.getFailures();
         if (testsCount > 0) {
           double percentage = passedTests * 100d / testsCount;
-          saveMeasure(context, resource, CoreMetrics.TEST_SUCCESS_DENSITY, ParsingUtils.scaleValue(percentage));
+         // saveMeasure(context, resource, CoreMetrics.TEST_SUCCESS_DENSITY, ParsingUtils.scaleValue(percentage));
         }
         saveResults(context, resource, report);
       }
@@ -148,7 +148,7 @@ public class ScalaSurefireParser {
   }
 
   private void saveResults(SensorContext context, InputFile resource, UnitTestClassReport report) {
-    context.saveMeasure(resource, new Measure(CoreMetrics.TEST_DATA, report.toXml()));
+   // context.saveMeasure(resource, new Measure(CoreMetrics.TEST_DATA, report.toXml()));
   }
 
   private InputFile getUnitTestResource(String classKey){
